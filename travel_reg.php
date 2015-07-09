@@ -22,10 +22,23 @@ $time = $_GET['time'];
 $sql = "INSERT INTO carpoolers VALUES ('$Name','$Number','$destination','$date','$time')";
 
 if ($conn->query($sql) == TRUE) {
-    echo "Database updated successfully.";
+    echo "";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
 $conn->close();
 ?>
+<html>
+<head>
+<title>Redirect</title>
+<meta http-equiv="refresh" content="1; URL=index.html">
+
+</head>
+<body>
+If your browser doesn't automatically go there within a few seconds,
+you may want to go to
+<a href="index.html">the destination</a>
+manually.
+</body>
+</html>
