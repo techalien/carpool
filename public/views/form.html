@@ -1,14 +1,16 @@
-<div class="container">
-  <div class="panel panel-default">
-    <div class="panel-heading">Register for Events at SNU Breeze 2015</div>
+<div class="container-fluid col-lg-6 col-lg-offset-3">
+  <div class="panel panel-primary ">
+    <div class="panel-heading text-center">let others know when you travelling!</div>
     <div class="panel-body">
-      <form class="form" method="post" ng-submit="addTravel()" name="addForm">
+      <form class="form-horizontal" method="post" ng-submit="addTravel()" name="addForm">
 
       <!-- Name Field -->
 
         <div class="form-group" ng-class="{ 'has-error' : addForm.Name.$invalid && addForm.Name.$dirty }">
-          <label class="control-label" for="Name">Name</label>
-          <input class="form-control" type="text" name="Name" ng-model="Name" placeholder="Your Name" required autofocus>
+          <label class="control-label col-md-4" for="Name">Name:</label>
+          <div class="col-md-8">
+            <input class="form-control" type="text" name="Name" ng-model="Name" placeholder="Your Name" required autofocus>
+          </div>
           <div class="help-block text-danger" ng-if="addForm.Name.$dirty" ng-messages="addForm.Name.$error">
             <div ng-message="required">Name is required.</div>
           </div>
@@ -16,8 +18,10 @@
 
         <!-- User Email -->
           <div class="form-group" ng-class="{ 'has-error' : addForm.userEmail.$invalid && addForm.userEmail.$dirty }">
-          <label class="control-label">Your Email Address</label>
+          <label class="control-label col-md-4">Your Email Address:</label>
+          <div class="col-md-8">
           <input class="form-control" type="email" name="userEmail" ng-model="userEmail" placeholder="Your Email ID" required autofocus>
+          </div>
           <div class="help-block text-danger" ng-if="addForm.userEmail.$dirty" ng-messages="addForm.userEmail.$error">
             <div ng-message="required">Your Email is required. Please ensure valid format of Email</div>
           </div>
@@ -26,9 +30,10 @@
         <!-- Phone Number field -->
 
           <div class="form-group" ng-class="{ 'has-error' : addForm.phoneNum.$invalid && addForm.phoneNum.$dirty }">
-          <label class="control-label">Phone Number</label>
-
+          <label class="control-label col-md-4">Phone Number:</label>
+          <div class="col-md-8">
           <input class="form-control" type="tel" name="phoneNum" ng-model="phoneNum" placeholder="Your Phone Number" required autofocus>
+        </div>
           <div class="help-block text-danger" ng-if="addForm.phoneNum.$dirty" ng-messages="addForm.phoneNum.$error">
             <div ng-message="required">Phone Number is required.Please ensure it is a valid phone number</div>
           </div>
@@ -36,37 +41,45 @@
 
 
        <div class="form-group" ng-class="{ 'has-error' : addForm.Source.$invalid && addForm.Source.$dirty }">
-       <label class="control-label">Source</label>
+       <label class="control-label col-md-4">Source:</label>
+       <div class="col-md-8">
        <input class="form-control" type="text" name="Source" ng-model="Source" placeholder="travel start source" required autofocus>
+     </div>
        <div class="help-block text-danger" ng-if="addForm.Source.$dirty" ng-messages="addForm.Source.$error">
          <div ng-message="required">Travel source is required.</div>
        </div>
      </div>
 
      <div class="form-group" ng-class="{ 'has-error' : addForm.Destination.$invalid && addForm.Destination.$dirty }">
-     <label class="control-label">Destination</label>
+     <label class="control-label col-md-4">Destination:</label>
+     <div class="col-md-8">
      <input class="form-control" type="text" name="Destination" ng-model="Destination" placeholder="travel Destination" required autofocus>
+   </div>
      <div class="help-block text-danger" ng-if="addForm.Destination.$dirty" ng-messages="addForm.Destination.$error">
        <div ng-message="required">Travel Destination is required.</div>
      </div>
    </div>
 
    <div class="form-group" ng-class="{ 'has-error' : addForm.travelDate.$invalid && addForm.travelDate.$dirty }">
-   <label class="control-label">Date</label>
+   <label class="control-label col-md-4">Date:</label>
+   <div class="col-md-8">
    <input class="form-control" type="text" name="travelDate" ng-model="travelDate" placeholder="travel Date" required autofocus>
+ </div>
    <!--<div class="help-block text-danger" ng-if="addForm.travelDate.$dirty" ng-messages="addForm.travelDate.$error">
      <div ng-message="required">Travel Date is required.</div>
    </div>-->
  </div>
  <div class="form-group" ng-class="{ 'has-error' : addForm.travelTime.$invalid && addForm.travelTime.$dirty }">
- <label class="control-label">Time</label>
+ <label class="control-label col-md-4">Time:</label>
+ <div class="col-md-8">
  <input class="form-control" type="text" name="travelTime" ng-model="travelTime" placeholder="travel time" required autofocus>
+</div>
 <!-- <div class="help-block text-danger" ng-if="addForm.travelTime.$dirty" ng-messages="addForm.travelTime.$error">
    <div ng-message="required">Travel Date is required.</div>
  </div>-->
 </div>
 
-        <button class="btn btn-primary" type="submit" ng-disabled="addForm.$invalid">Add</button>
+        <button class="btn btn-primary btn-block" type="submit" ng-disabled="addForm.$invalid">Add</button>
       </form>
     </div>
   </div>
