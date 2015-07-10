@@ -10,7 +10,6 @@ angular.module('carpooler')
         travelTime:$scope.travelTime}).$promise
         .then(function() {
           $scope.Name = '';
-
           $scope.phoneNum = '';
           $scope.userEmail = '';
           $scope.Source='';

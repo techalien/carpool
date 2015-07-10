@@ -57,7 +57,7 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 // define a model
 var User = mongoose.model('User', userSchema);
-var travel = mongoose.model('Travel', travelSchema);
+var Travel = mongoose.model('Travel', travelSchema);
 mongoose.connect('mongodb://carpooler:ilikecarpooling@ds053312.mongolab.com:53312/carpooler'); // connect to our database
 var app = express();
 
