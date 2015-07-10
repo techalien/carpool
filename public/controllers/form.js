@@ -1,7 +1,7 @@
 angular.module('carpooler')
-  .controller('AddCtrl', function($scope, $alert, Event) {
+  .controller('AddCtrl', function($scope, $alert, Travel) {
     $scope.addEvent = function() {
-      Event.save({ Name: $scope.Name,
+      Travel.save({ Name: $scope.Name,
         userEmail:$scope.userEmail,
         phoneNum:$scope.phoneNum,
         Source:$scope.Source,
@@ -26,7 +26,7 @@ angular.module('carpooler')
           });
         })
         .catch(function(response) {
-          $scope.eventName = '';
+          $scope.Destination = '';
           $scope.addForm.$setPristine();
           $alert({
             content: response.data.message,
