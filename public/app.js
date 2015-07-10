@@ -23,6 +23,10 @@ angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate',
         templateUrl: 'views/form.html',
         controller: 'AddCtrl'
       })
+      .when('/detail',{
+        templateUrl: 'views/detail.html',
+        controller: 'DetailCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
