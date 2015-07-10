@@ -1,6 +1,6 @@
 angular.module('carpooler')
   .controller('MainCtrl', function($scope, Travel) {
-    $scope.headingTitle = 'Songs in Library';
+    $scope.headingTitle = 'Tr';
     $scope.shows = Travel.query();
     $scope.filterBySource = function(genre) {
       $scope.travels = Travel.query({ source: source });
