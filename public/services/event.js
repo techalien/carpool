@@ -1,4 +1,4 @@
 angular.module('carpooler')
   .factory('Travel', function($resource) {
-    return $resource('/api/travels/:_id');
+    return $resource('/api/carpooler/:id');
   });
