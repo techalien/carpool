@@ -20,7 +20,7 @@ var travelSchema   = new Schema({
   userEmail:String,
   Source:String,
   Destination:String,
-  travelDate:String,
+  travelDate:Date,
   travelTime:String
 });
 
@@ -68,7 +68,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/api/carpooler', function(req, res, next) {
-  Travel.find(function(err, carpooler) {
+  Travel.find({},function(err, carpooler) {
       if (err)
         res.send(err);
 

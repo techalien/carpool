@@ -7,7 +7,7 @@ angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate',
         templateUrl: 'views/home.html',
         controller: 'MainCtrl'
       })
-      .when('/travel/:id', {
+      .when('/travel/', {
         templateUrl: 'views/detail.html',
         controller: 'DetailCtrl'
       })
