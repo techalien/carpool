@@ -7,10 +7,6 @@ angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate',
         templateUrl: 'views/home.html',
         controller: 'MainCtrl'
       })
-      .when('/travel/', {
-        templateUrl: 'views/detail.html',
-        controller: 'DetailCtrl'
-      })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'

@@ -1,18 +1,27 @@
+<div class="container-fluid">
+  <table class="table table-striped table-hover ">
+<thead>
+<tr>
 
-<div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            {{headingTitle}}
-            <div class="pull-right"> //Search Bar
-                <input class="search" type="text" ng-model="query.name" placeholder="Search...">
-            </div>
-        </div>
-        <div class="panel-body">    //Result view
-            <div class="row show-list">
-                <div class="fade-repeat col-xs-4 col-md-3" ng-repeat="travel in travels | filter:query"> //filter by
-                    {{ }} // add relevant data
-                </div>
-            </div>
-        </div>
-    </div>
+  <th>Name</th>
+  <th>Email</th>
+  <th>Contact</th>
+  <th>Source</th>
+  <th>Destination</th>
+  <th>Date</th>
+  <th>Time</th>
+</tr>
+</thead>
+<tbody ng-repeat="t in ex">
+  <tr>
+    <td>{{t.Name}}</td>
+    <td>{{t.userEmail}}</td>
+    <td>{{t.phoneNum}}</td>
+    <td>{{t.Source}}</td>
+    <td>{{t.Destination}}</td>
+    <td>{{t.Date}}</td>
+    <td>{{t.Time}}</td>
+  </tr>
+</tbody>
+</table>
 </div>

@@ -1,5 +1,7 @@
 angular.module('carpooler')
   .controller('AddCtrl', function($scope, $alert, Travel) {
+    $scope.message_head = "Start finding your carpoolers!";
+    console.log('form');
     $scope.addTravel = function() {
       Travel.save({
         Name: $scope.Name,
