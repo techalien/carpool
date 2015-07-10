@@ -1,4 +1,4 @@
-angular.module('breeze', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap'])
+angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap'])
   .config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 
@@ -7,7 +7,7 @@ angular.module('breeze', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate', 'm
         templateUrl: 'views/home.html',
         controller: 'MainCtrl'
       })
-      .when('/events/:id', {
+      .when('/travel/:id', {
         templateUrl: 'views/detail.html',
         controller: 'DetailCtrl'
       })
@@ -19,7 +19,7 @@ angular.module('breeze', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate', 'm
         templateUrl: 'views/signup.html',
         controller: 'SignupCtrl'
       })
-      .when('/events', {
+      .when('/travels', {
         templateUrl: 'views/form.html',
         controller: 'AddCtrl'
       })
