@@ -20,7 +20,7 @@ var travelSchema   = new Schema({
   userEmail:String,
   Source:String,
   Destination:String,
-  travelDate:Date,
+  travelDate:String,
   travelTime:String
 });
 
@@ -61,7 +61,7 @@ var Travel = mongoose.model('Travel', travelSchema);
 mongoose.connect('mongodb://carpooler:ilikecarpooling@ds053312.mongolab.com:53312/carpooler'); // connect to our database
 var app = express();
 
-app.set('port', process.env.PORT || 8080);
+app.set('port', process.env.PORT || 3000);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -102,18 +102,23 @@ app.post('/api/carpooler', function (req, res, next) {
     });
 
 });
-/*
-app.delete('/api/carpooler/:id', function(req, res) {
+
+app.delete('/api/carpooler/:booking_id', function(req, res) {
     Travel.remove({
-      _id: req.params.event_id
-    }, function(err, event) {
+      _id: req.params.booking_id
+    }, function(err, booking) {
       if (err)
         res.send(err);
 
-      res.json({ message: 'Successfully deleted' });
+        Travel.find({},function(err, carpooler) {
+            if (err)
+              res.send(err);
+
+            res.json(carpooler);
+          });
     });
   });
-*/
+
 
 function ensureAuthenticated(req, res, next) {
   if (req.headers.authorization) {
