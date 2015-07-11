@@ -22,8 +22,10 @@ angular.module('carpooler')
                 });
         };
         $scope.getRes = function(id) {
+          $scope.bookingReference = {};
           $http.get('/api/carpooler/'+id)
             .success(function(data) {
+
               $scope.bookingReference = data;
             })
             .error(function(data) {
