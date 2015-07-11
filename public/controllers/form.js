@@ -91,7 +91,7 @@ angular.module('carpooler')
           $alert({
             content: 'travel request has been logged.',
             animation: 'fadeZoomFadeDown',
-            type: 'material',
+            type: 'info',
             duration: 3
           });
         })
@@ -104,6 +104,7 @@ angular.module('carpooler')
             type: 'material',
             duration: 3
           });
+
         });
     };
   });
