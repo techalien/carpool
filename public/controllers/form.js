@@ -66,8 +66,6 @@ angular.module('carpooler')
 
       return '';
     };
-
-
     console.log('form');
     $scope.addTravel = function() {
       Travel.save({
@@ -76,7 +74,7 @@ angular.module('carpooler')
         phoneNum:$scope.phoneNum,
         Source:$scope.Source,
         Destination:$scope.Destination,
-        travelDate:$scope.dt,
+        travelDate:$scope.formatdt,
         travelTime:$scope.travelTime
         }).$promise
         .then(function() {
