@@ -63,12 +63,22 @@
    <div class="form-group" ng-class="{ 'has-error' : addForm.travelDate.$invalid && addForm.travelDate.$dirty }">
    <label class="control-label col-md-4">Date:</label>
    <div class="col-md-8">
-   <input class="form-control" type="text" name="travelDate" ng-model="travelDate" placeholder="travel Date" required autofocus>
+       <div class="container-fluid">
+           <pre>You Have Selected : <em>{{dt | date:'fullDate' }}</em></pre>
+             <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+
+                 <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+                 <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+       </div>
  </div>
    <!--<div class="help-block text-danger" ng-if="addForm.travelDate.$dirty" ng-messages="addForm.travelDate.$error">
      <div ng-message="required">Travel Date is required.</div>
    </div>-->
  </div>
+
+
+
+
  <div class="form-group" ng-class="{ 'has-error' : addForm.travelTime.$invalid && addForm.travelTime.$dirty }">
  <label class="control-label col-md-4">Time:</label>
  <div class="col-md-8">
