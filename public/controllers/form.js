@@ -1,7 +1,6 @@
 angular.module('carpooler')
   .controller('AddCtrl', function($scope, $alert, Travel) {
     $scope.message_head = "Start finding your carpoolers!";
-    console.log('form');
     $scope.today = function() {
       $scope.dt = new Date();
     };
@@ -9,6 +8,11 @@ angular.module('carpooler')
 
     $scope.clear = function () {
       $scope.dt = null;
+    };
+
+    // Disable weekend selection
+    $scope.disabled = function(date, mode) {
+      return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     };
 
     $scope.toggleMin = function() {
@@ -62,6 +66,9 @@ angular.module('carpooler')
 
       return '';
     };
+
+
+    console.log('form');
     $scope.addTravel = function() {
       Travel.save({
         Name: $scope.Name,
@@ -69,7 +76,7 @@ angular.module('carpooler')
         phoneNum:$scope.phoneNum,
         Source:$scope.Source,
         Destination:$scope.Destination,
-        travelDate:$scope.travelDate,
+        travelDate:$scope.dt,
         travelTime:$scope.travelTime
         }).$promise
         .then(function() {

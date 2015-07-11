@@ -20,7 +20,7 @@ var travelSchema   = new Schema({
   userEmail:String,
   Source:String,
   Destination:String,
-  travelDate:String,
+  travelDate:Date,
   travelTime:String
 });
 
