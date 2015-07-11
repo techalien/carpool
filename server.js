@@ -77,10 +77,10 @@ app.get('/api/carpooler', function(req, res, next) {
 
 });
 
-app.get('/api/carpooler/:id', function(req, res, next) { //Get by destination, date, time
-  Travel.findById(req.params.id, function(err, event) {
+app.get('/api/carpooler/:booking_id', function(req, res, next) { //Get by destination, date, time
+  Travel.findById(req.params.booking_id, function(err, booking) {
     if (err) return next(err);
-    res.send(travel);
+    res.send(booking);
   });
 });
 
