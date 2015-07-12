@@ -9,16 +9,23 @@
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
 </head>
 <body>
-<div ng-controller="NavbarCtrl" class="navbar navbar-inverse navbar-static-top" role="navigation" bs-navbar>
+<nav ng-controller="NavbarCtrl" class="navbar navbar-inverse navbar-fixed-top" role="navigation" bs-navbar>
   <div class="navbar-header">
-    <a class="navbar-brand" href="/">
-      <span>poolyour<strong>Car</strong></span>
-    </a>
-  </div>
-  <ul class="nav navbar-nav">
-    <li data-match-route="/$"><a href="/">Home</a></li>
-    <li data-match-route="/add"><a href="/travels">Travels</a></li>
-    <li data-match-route="/detail"><a href="/detail">Details</a></li>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+  </button>
+      <a class="navbar-brand" href="/">
+        <span>poolyour<strong>Car</strong></span>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li data-match-route="/$"><a href="/">Home</a></li>
+      <li data-match-route="/add"><a href="/travels">Travels</a></li>
+      <li data-match-route="/detail"><a href="/detail">Details</a></li>
   </ul>
   <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
     <li data-match-route="/login"><a href="/login">Login</a></li>
@@ -30,6 +37,7 @@
     <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
   </ul>
 </div>
+</nav>
 
 <div ng-view class="{{pageClass}}"></div>
 
