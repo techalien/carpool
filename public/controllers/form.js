@@ -71,16 +71,16 @@ angular.module('carpooler')
           var dateOut = new Date(date);
           return dateOut;
     };
-    $scope.addTravel = function() {
-  
+    $scope.travelTime = new Date();
 
+    $scope.addTravel = function() {
       Travel.save({
         Name: $scope.Name,
         userEmail:$scope.userEmail,
         phoneNum:$scope.phoneNum,
         Source:$scope.Source,
         Destination:$scope.Destination,
-        travelDate:$scope.travelDate,
+        travelDate:$scope.dt,
         travelTime:$scope.travelTime
         }).$promise
         .then(function() {

@@ -6,7 +6,8 @@ angular.module('carpooler')
     $http.get('/api/carpooler')
         .success(function(data) {
           for(i = 0;i<data.length;i++) {
-            data[i].travelDate = new moment(data[i].travelDate).format("MMM Do YY");
+            data[i].travelDate = new moment(data[i].travelDate).format("MMM Do YYYY");
+            data[i].travelTime = new moment(data[i].travelTime).format("h:mm:ss a");
           }
             $scope.bookings = data;
             console.log(data);
@@ -17,6 +18,10 @@ angular.module('carpooler')
         $scope.deleteBooking = function(id) {
             $http.delete('/api/carpooler/' + id)
                 .success(function(data) {
+                  for(i = 0;i<data.length;i++) {
+                    data[i].travelDate = new moment(data[i].travelDate).format("MMM Do YYYY");
+                    data[i].travelTime = new moment(data[i].travelTime).format("h:mm:ss a");
+                  }
                     $scope.bookings = data;
                     console.log(data);
                 })
@@ -28,9 +33,9 @@ angular.module('carpooler')
           $scope.bookingReference = {};
           $http.get('/api/carpooler/'+id)
             .success(function(data) {
-              data.travelDate = new moment(data.travelDate).format("MMM Do YY");
+              data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
+              data.travelTime = new moment(data.travelTime).format("h:mm:ss a");
               $scope.bookingReference = data;
-              //$scope.bookingReference.travelDate = new moment(data.travelDate).format("MMM Do YY");
             })
             .error(function(data) {
                 console.log('Error: ' + data);

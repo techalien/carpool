@@ -76,18 +76,10 @@
    </div>-->
  </div>
 
-
-
-
-
  <div class="form-group" ng-class="{ 'has-error' : addForm.travelTime.$invalid && addForm.travelTime.$dirty }">
  <label class="control-label col-md-4">Time:</label>
  <div class="col-md-8">
-     <div class="form-group">
-
-     <input name="travelTime" ng-model="travelTime" type="text" size="8" class="form-control" data-time-format="hh:mm:ss" data-autoclose="1" placeholder="Time" bs-timepicker>
-    </div>
-
+     <input type="text" class="form-control" size="8" ng-model="travelTime" name="time" bs-timepicker>
 </div>
 <!-- <div class="help-block text-danger" ng-if="addForm.travelTime.$dirty" ng-messages="addForm.travelTime.$error">
    <div ng-message="required">Travel Date is required.</div>
