@@ -79,16 +79,7 @@ app.post('/auth/signup', function(req, res, next) {
     res.send(200);
   });
 });
-app.get('/users', function(req, res, next) {
-  if (!req.query.email) {
-    return res.send(400, { message: 'Email parameter is required.' });
-  }
 
-  User.findOne({ email: req.query.email }, function(err, user) {
-    if (err) return next(err);
-    res.send({ available: !user });
-  });
-});
 
 app.post('/auth/login', function(req, res, next) {
   User.findOne({ email: req.body.email }, function(err, user) {
@@ -100,7 +91,16 @@ app.post('/auth/login', function(req, res, next) {
     });
   });
 });
+app.get('/users', function(req, res, next) {
+  if (!req.query.email) {
+    return res.send(400, { message: 'Email parameter is required.' });
+  }
 
+  User.findOne({ email: req.query.email }, function(err, user) {
+    if (err) return next(err);
+    res.send({ available: !user });
+  });
+});
 
 // basic route (http://localhost:8080)
 app.get('/', function(req, res) {
