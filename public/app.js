@@ -28,7 +28,11 @@ angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate',
       });
   })
   .constant("moment", moment)
-
+  .config(function($timepickerProvider) {
+    angular.extend($timepickerProvider.defaults, {
+      minuteStep: 1
+    });
+  })
   .config(function ($httpProvider) {
     $httpProvider.interceptors.push(function ($rootScope, $q, $window, $location) {
       return {
