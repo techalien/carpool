@@ -27,21 +27,8 @@ angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate',
         redirectTo: '/'
       });
   })
-  .filter('dateFormat', function($filter)
-  {
-   return function(input)
-   {
-    if(input == null){ return ""; }
+  .constant("moment", moment)
 
-     var _date = $filter('date')(new Date(input),
-                                'MMM dd yyyy');
-
-    var _now = new Date(_date);
-
-    return _now.getTime();
-
-   };
-  })
   .config(function ($httpProvider) {
     $httpProvider.interceptors.push(function ($rootScope, $q, $window, $location) {
       return {

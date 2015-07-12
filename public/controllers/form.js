@@ -72,7 +72,7 @@ angular.module('carpooler')
           return dateOut;
     };
     $scope.addTravel = function() {
-      $scope.travelDate = $filter('dateFormat')( $scope.dt);
+  
 
       Travel.save({
         Name: $scope.Name,
