@@ -1,5 +1,5 @@
 angular.module('carpooler')
-  .controller('AddCtrl', function($scope, $alert, Travel) {
+  .controller('AddCtrl', function($scope, $alert, Travel,$filter) {
     $scope.message_head = "Start finding your carpoolers!";
     $scope.today = function() {
       $scope.dt = new Date();
@@ -67,14 +67,20 @@ angular.module('carpooler')
       return '';
     };
     console.log('form');
+    $scope.formatDate = function(date){
+          var dateOut = new Date(date);
+          return dateOut;
+    };
     $scope.addTravel = function() {
+      $scope.travelDate = $filter('dateFormat')( $scope.dt);
+
       Travel.save({
         Name: $scope.Name,
         userEmail:$scope.userEmail,
         phoneNum:$scope.phoneNum,
         Source:$scope.Source,
         Destination:$scope.Destination,
-        travelDate:$scope.formatdt,
+        travelDate:$scope.travelDate,
         travelTime:$scope.travelTime
         }).$promise
         .then(function() {

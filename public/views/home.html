@@ -1,56 +1,65 @@
 <div class="container-fluid">
 
-        <!-- HEADER AND TODO COUNT -->
-        <div class="jumbotron text-center">
-            <h1>Hi {{username}}! Total bookings from users<span class="label label-info">{{ bookings.length }}</span></h1>
+        <!-- HEADER AND COUNT -->
+        <div class="jumbotron text-center" ng-hide = "status1">
+            <h1>Hi {{username}}! <!--<span class="label label-info">{{ bookings.length }}</span>--></h1>
         </div>
-        <!-- TODO LIST -->
-        <div id="todo-list" class="row" ng-hide="status1">
-            <div class="col-md-5">
-                <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <table class="table table-striped table-hover ">
-              <thead>
-              <tr>
-                <th>Delete?</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Contact</th>
-                <th>Source</th>
-                <th>Destination</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Find others</th>
-              </tr>
-              </thead>
-              <tbody ng-repeat="booking in bookings | filter:username">
-                <tr>
-                  <td><input type="checkbox" ng-click="deleteBooking(booking._id)"></td>
-                  <td>{{ booking.Name }}</td>
-                  <td>{{booking.userEmail}}</td>
-                  <td>{{booking.phoneNum}}</td>
-                  <td>{{booking.Source}}</td>
-                  <td>{{booking.Destination}}</td>
-                  <td>{{booking.travelDate}}</td>
-                  <td>{{booking.travelTime}}</td>
-                  <td><button class="btn btn-primary" ng-click="getRes(booking._id)">Find!</button>
-                </tr>
-              </tbody>
-              </table>
-            </div>
-
-                        <div class="col-md-5-offset-1 col-centered" ng-show="status2">
-                          <table class="table table-striped table-hover ">
-                        <thead>
+        <div class="jumbotron text-center" ng-show = "status1">
+            <h1>Enter your Username! <!--<span class="label label-info">{{ bookings.length }}</span>--></h1>
+        </div>
+        <!-- LIST -->
+            <div class="row" ng-hide="status1">
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Your bookings</div>
+                  <div class="panel-body">
+                    <table class="table table-striped table-hover ">
+                      <thead>
                         <tr>
-
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Contact</th>
-                          <th>Source</th>
-                          <th>Destination</th>
-                          <th>Date</th>
-                          <th>Time</th>
-                        </tr>
+                          <th>Delete?</th>
+                            <!--<th>Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>-->
+                            <th>Source</th>
+                            <th>Destination</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Find others</th>
+                          </tr>
+                        </thead>
+                        <tbody ng-repeat="booking in bookings | filter:username">
+                          <tr>
+                            <td><input type="checkbox" ng-click="deleteBooking(booking._id)"></td>
+                            <!--  <td>{{ booking.Name }}</td>
+                            <td>{{booking.userEmail}}</td>
+                            <td>{{booking.phoneNum}}</td>-->
+                            <td>{{booking.Source}}</td>
+                            <td>{{booking.Destination}}</td>
+                            <td>{{booking.travelDate}}</td>
+                            <td>{{booking.travelTime}}</td>
+                            <td><button class="btn btn-primary" ng-click="getRes(booking._id)">Find!</button>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <!--Result output-->
+                <div class="col-md-6 col-centered" ng-show="status2">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">Others travelling the same as you</div>
+                    <div class="panel-body">
+                      <table class="table table-striped table-hover ">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Source</th>
+                            <th>Destination</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                          </tr>
                         </thead>
                         <tbody ng-repeat="booking in bookings | filter:{Source:bookingReference.Source,Destination:bookingReference.Destination}">
                           <tr>
@@ -63,31 +72,32 @@
                             <td>{{booking.travelTime}}</td>
                           </tr>
                         </tbody>
-                        </table>
-                      </div>
-</div>
-<<<<<<< HEAD
-=======
-            
-            <div class="col-md-6" ng-show="status2">
-              <table class="table table-striped table-hover ">
-            <thead>
-            <tr>
->>>>>>> 3913e0ba22418854ee01203cbae2264a56008ccc
+                      </table>
+                    </div>
+                  </div>
+                </div>
 
-        </div>
+                <div class="col-md-6 col-centered" ng-hide="status2">
+                  <div class="panel panel-default">
+
+                    <div class="panel-body">
+                      <div class="jumbotron text-center">
+                        <h1 class="label label-primary">'Find!'</h1>
+                      </div>
+                        <h2>Click the find button to get results!</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
 
         <!-- FORM TO CREATE TODOS -->
-        <div id="todo-form"  ng-show="status1">
+        <div  ng-show="status1">
             <div class="col-sm-8 col-sm-offset-2 text-center">
                 <form>
                     <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
                         <input type="text" class="form-control input-lg text-center" placeholder="UserName" ng-model="formData.name">
                     </div>
-
-                    <!-- createToDo() WILL CREATE NEW TODOS -->
                     <button type="submit" class="btn btn-primary btn-lg" ng-click="getUser()">Get bookings</button>
                 </form>
             </div>
