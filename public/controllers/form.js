@@ -105,7 +105,7 @@ angular.module('carpooler')
           $alert({
             content: response.data.message,
             animation: 'fadeZoomFadeDown',
-            type: 'material',
+            type: 'info',
             duration: 3
           });
 

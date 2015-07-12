@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-  "start": "node ./bin/www"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "angular": "^1.4.1",
     "angular-formly": "^6.16.1",
     "angular-formly-templates-bootstrap": "^4.4.0",
     "api-check": "^7.5.0",
+    "async": "^0.8.0",
     "bcryptjs": "^0.7.12",
     "body-parser": "~1.13.1",
     "bootstrap": "^3.3.5",
@@ -17,15 +18,14 @@
     "debug": "~2.2.0",
     "express": "~4.13.0",
     "jade": "~1.11.0",
+    "json-web-token": "^1.5.3",
+    "jwt-simple": "^0.2.0",
+    "method-override": "^1.0.0",
+    "moment": "^2.7.0",
     "mongoose": "^3.8.8",
     "morgan": "~1.6.1",
     "nodemailer": "^0.6.3",
-    "serve-favicon": "~2.3.0",
-    "async": "^0.8.0",
-    "jwt-simple": "^0.2.0",
-    "method-override": "^1.0.0",
     "request": "^2.34.0",
-    "moment": "^2.7.0"
-
+    "serve-favicon": "~2.3.0"
   }
 }
