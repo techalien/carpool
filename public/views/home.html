@@ -1,14 +1,12 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-if="isAuthenticated()">
 
         <!-- HEADER AND COUNT -->
-        <div class="jumbotron text-center" ng-hide = "status1">
+        <div class="jumbotron text-center" >
             <h1>Hi {{username}}! <!--<span class="label label-info">{{ bookings.length }}</span>--></h1>
         </div>
-        <div class="jumbotron text-center" ng-show = "status1">
-            <h1>Enter your Username! <!--<span class="label label-info">{{ bookings.length }}</span>--></h1>
-        </div>
+
         <!-- LIST -->
-            <div class="row" ng-hide="status1">
+            <div class="row" >
               <div class="col-md-6">
                 <div class="panel panel-default">
                   <div class="panel-heading">Your bookings</div>
@@ -92,14 +90,20 @@
 
 
         <!-- FORM TO CREATE TODOS -->
-        <div  ng-show="status1">
+      <!--  <div  ng-show="status1">
             <div class="col-sm-8 col-sm-offset-2 text-center">
                 <form>
                     <div class="form-group">
                         <input type="text" class="form-control input-lg text-center" placeholder="UserName" ng-model="formData.name">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="getUser()">Get bookings</button>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="">Get bookings</button>
                 </form>
             </div>
-        </div>
+        </div>-->
     </div>
+
+<div class="container-fluid" ng-if="!isAuthenticated()">
+  <div class="jumbotron text-center" >
+      <h1>Login! <!--<span class="label label-info">{{ bookings.length }}</span>--></h1>
+  </div>
+</div>

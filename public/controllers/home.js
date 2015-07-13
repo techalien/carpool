@@ -1,8 +1,27 @@
 angular.module('carpooler')
-  .controller('MainCtrl',function($scope,$http, Travel,moment){
-    $scope.status1 = true;
-    $scope.status2 = false;
+  .controller('MainCtrl',function($scope,$http, Travel,moment,$auth){
+
     $scope.formData = {};
+
+    /*$scope.getUser = function() {
+      $scope.username = $scope.user.displayName;
+      $scope.status1 = false;
+    };*/
+    $scope.userdata= {};
+
+    $scope.isAuthenticated = function() {
+
+      return $auth.isAuthenticated();
+    };
+
+    
+      $http.get('/api/me')
+        .success(function(data){
+          $scope.userdata = data;
+        });
+        $scope.username = $scope.userdata.displayName;
+
+
     $http.get('/api/carpooler')
         .success(function(data) {
           for(i = 0;i<data.length;i++) {
@@ -15,6 +34,8 @@ angular.module('carpooler')
         .error(function(data) {
             console.log('Error: ' + data);
         });
+
+
         $scope.deleteBooking = function(id) {
             $http.delete('/api/carpooler/' + id)
                 .success(function(data) {
@@ -42,9 +63,6 @@ angular.module('carpooler')
             });
             $scope.status2 = true;
         };
-    $scope.getUser = function() {
-      $scope.username = $scope.formData.name;
-      $scope.status1 = false;
-      $scope.formData.name = '';
-    };
+
+
   });
