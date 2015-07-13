@@ -1,9 +1,3 @@
-/**
- * Satellizer Node.js Example
- * (c) 2015 Sahat Yalkabov
- * License: MIT
- */
-
 var path = require('path');
 var qs = require('querystring');
 var async = require('async');
@@ -19,8 +13,20 @@ var mongoose = require('mongoose');
 var request = require('request');
 
 var config = require('./config');
+var Schema  = mongoose.Schema;
 
-var userSchema = new mongoose.Schema({
+// define schemas
+var travelSchema   = new Schema({
+  Name: String,
+  phoneNum: String,
+  userEmail:String,
+  Source:String,
+  Destination:String,
+  travelDate:Date,
+  travelTime:String
+});
+
+var userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, select: false },
   displayName: String,
@@ -46,6 +52,7 @@ userSchema.methods.comparePassword = function(password, done) {
 };
 
 var User = mongoose.model('User', userSchema);
+var Travel = mongoose.model('Travel', travelSchema);
 
 mongoose.connect(config.MONGO_URI);
 mongoose.connection.on('error', function(err) {
@@ -59,6 +66,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Force HTTPS on Heroku
 if (app.get('env') === 'production') {
@@ -67,7 +75,6 @@ if (app.get('env') === 'production') {
     protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
   });
 }
-app.use(express.static(path.join(__dirname, 'public')));
 
 /*
  |--------------------------------------------------------------------------
@@ -137,6 +144,60 @@ app.put('/api/me', ensureAuthenticated, function(req, res) {
     });
   });
 });
+
+
+app.get('/api/carpooler', function(req, res, next) {
+  Travel.find({},function(err, carpooler) {
+      if (err)
+        res.send(err);
+
+      res.json(carpooler);
+    });
+
+});
+
+app.get('/api/carpooler/:booking_id', function(req, res, next) { //Get by destination, date, time
+  Travel.findById(req.params.booking_id, function(err, booking) {
+    if (err) return next(err);
+    res.send(booking);
+  });
+});
+
+app.post('/api/carpooler', function (req, res, next) {
+   var travel = new Travel();    // create a new instance of the Travel model
+    travel.Name = req.body.Name;  // set the event name (comes from the request)
+    travel.userEmail=req.body.userEmail;
+    travel.phoneNum=req.body.phoneNum;
+    travel.Source=req.body.Source;
+    travel.Destination=req.body.Destination;
+    travel.travelDate=req.body.travelDate;
+    travel.travelTime=req.body.travelTime;
+                                //configure angular to choose from dropdown menu
+    travel.save(function(err) {
+      if (err)
+        res.send(err);
+
+      res.json({ message: 'Travel Successfully Added!' });
+    });
+
+});
+
+app.delete('/api/carpooler/:booking_id', function(req, res) {
+    Travel.remove({
+      _id: req.params.booking_id
+    }, function(err, booking) {
+      if (err)
+        res.send(err);
+
+        Travel.find({},function(err, carpooler) {
+            if (err)
+              res.send(err);
+
+            res.json(carpooler);
+          });
+    });
+  });
+
 
 
 /*

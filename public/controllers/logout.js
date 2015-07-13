@@ -6,9 +6,11 @@ angular.module('carpooler')
      $auth.logout()
        .then(function() {
          $alert({
+             title:'Logged Out',
            content: 'You have been logged out',
            animation: 'fadeZoomFadeDown',
-           type: 'material',
+           type: 'info',
+           show: true,
            duration: 3
          });
        });

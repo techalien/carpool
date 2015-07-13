@@ -1,53 +1,61 @@
-angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap','ui.bootstrap','satellizer'])
-  .config(function ($routeProvider, $locationProvider) {
-    $locationProvider.html5Mode(true);
+angular.module('carpooler', ['ngResource', 'ngMessages', 'ui.router','ngAnimate', 'mgcrea.ngStrap','ui.bootstrap', 'satellizer'])
+    .config(function($stateProvider, $urlRouterProvider, $authProvider) {
+      $stateProvider
+        .state('home', {
+          url: '/',
+          templateUrl: 'views/home.html',
+          controller:'MainCtrl'
+        })
+        .state('travels', {
+        url:'/travels',
+       templateUrl: 'views/form.html',
+       controller: 'AddCtrl'
+     })
+        .state('login', {
+          url: '/login',
+          templateUrl: 'views/login.html',
+          controller: 'LoginCtrl'
+        })
+        .state('signup', {
+          url: '/signup',
+          templateUrl: 'views/signup.html',
+          controller: 'SignupCtrl'
+        })
+        .state('logout', {
+          url: '/logout',
+          template: null,
+          controller: 'LogoutCtrl'
+        })
+        .state('detail',{
+            url:'/detail',
+            templateUrl:'views/detail.html',
+            controller:'DetailCtrl'
+        })
+        .state('profile', {
+          url: '/profile',
+          templateUrl: 'views/profile.html',
+          controller: 'ProfileCtrl',
+          resolve: {
+            authenticated: function($q, $location, $auth) {
+              var deferred = $q.defer();
 
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/home.html',
-        controller: 'MainCtrl'
-      })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .when('/signup', {
-        templateUrl: 'views/signup.html',
-        controller: 'SignupCtrl'
-      })
-      .when('/travels', {
-        templateUrl: 'views/form.html',
-        controller: 'AddCtrl'
-      })
-      .when('/detail',{
-        templateUrl: 'views/detail.html',
-        controller: 'DetailCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  })
-  .constant("moment", moment)
-  .config(function($timepickerProvider) {
-    angular.extend($timepickerProvider.defaults, {
-      minuteStep: 1
-    });
-  })
-  .config(function ($httpProvider) {
-    $httpProvider.interceptors.push(function ($rootScope, $q, $window, $location) {
-      return {
-        request: function(config) {
-          if ($window.localStorage.token) {
-            config.headers.Authorization = 'Bearer ' + $window.localStorage.token;
+              if (!$auth.isAuthenticated()) {
+                $location.path('/login');
+              } else {
+                deferred.resolve();
+              }
+
+              return deferred.promise;
+            }
           }
-          return config;
-        },
-        responseError: function(response) {
-          if (response.status === 401 || response.status === 403) {
-            $location.path('/login');
-          }
-          return $q.reject(response);
-        }
-      }
-    });
+        });
+
+      $urlRouterProvider.otherwise('/');
+
+})
+.constant("moment", moment)
+.config(function($timepickerProvider) {
+  angular.extend($timepickerProvider.defaults, {
+    minuteStep: 1
   });
+});

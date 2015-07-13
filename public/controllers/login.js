@@ -6,7 +6,7 @@
             $alert({
               content: 'You have successfully logged in',
               animation: 'fadeZoomFadeDown',
-              type: 'material',
+              type: 'info',
               duration: 3
             });
           })
@@ -14,7 +14,7 @@
             $alert({
               content: response.data.message,
               animation: 'fadeZoomFadeDown',
-              type: 'material',
+              type: 'info',
               duration: 3
             });
           });
@@ -25,7 +25,7 @@
             $alert({
               content: 'You have successfully logged in',
               animation: 'fadeZoomFadeDown',
-              type: 'material',
+              type: 'info',
               duration: 3
             });
           })
@@ -33,7 +33,7 @@
             $alert({
               content: response.data ? response.data.message : response,
               animation: 'fadeZoomFadeDown',
-              type: 'material',
+              type: 'info',
               duration: 3
             });
           });
