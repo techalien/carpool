@@ -1,16 +1,18 @@
 var path = require('path');
-var express = require('express');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var crypto = require('crypto');
+var qs = require('querystring');
+var async = require('async');
 var bcrypt = require('bcryptjs');
-var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var colors = require('colors');
+var cors = require('cors');
+var express = require('express');
+var logger = require('morgan');
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var async = require('async');
+var mongoose = require('mongoose');
 var request = require('request');
-var tokenSecret = 'breezeToken';
 
+var config = require('./config');
 var Schema  = mongoose.Schema;
 
 // define schemas
@@ -25,49 +27,126 @@ var travelSchema   = new Schema({
 });
 
 var userSchema = new Schema({
-  name: { type: String, trim: true, required: true },
-  email: { type: String, unique: true, lowercase: true, trim: true },
-  password: String,
-  facebook: {
-    id: String,
-    email: String
-  },
-  google: {
-    id: String,
-    email: String
-  }
+  email: { type: String, unique: true, lowercase: true },
+  password: { type: String, select: false },
+  displayName: String,
 });
+
 userSchema.pre('save', function(next) {
   var user = this;
-  if (!user.isModified('password')) return next();
+  if (!user.isModified('password')) {
+    return next();
+  }
   bcrypt.genSalt(10, function(err, salt) {
-    if (err) return next(err);
     bcrypt.hash(user.password, salt, function(err, hash) {
-      if (err) return next(err);
       user.password = hash;
       next();
     });
   });
 });
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
+
+userSchema.methods.comparePassword = function(password, done) {
+  bcrypt.compare(password, this.password, function(err, isMatch) {
+    done(err, isMatch);
   });
 };
-// define a model
+
 var User = mongoose.model('User', userSchema);
 var Travel = mongoose.model('Travel', travelSchema);
-mongoose.connect('mongodb://carpooler:ilikecarpooling@ds053312.mongolab.com:53312/carpooler'); // connect to our database
+
+mongoose.connect(config.MONGO_URI);
+mongoose.connection.on('error', function(err) {
+  console.log('Error: Could not connect to MongoDB. Did you forget to run `mongod`?'.red);
+});
+
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/api/carpooler', function(req, res, next) {
+// Force HTTPS on Heroku
+if (app.get('env') === 'production') {
+  app.use(function(req, res, next) {
+    var protocol = req.get('x-forwarded-proto');
+    protocol == 'https' ? next() : res.redirect('https://' + req.hostname + req.url);
+  });
+}
+
+/*
+ |--------------------------------------------------------------------------
+ | Login Required Middleware
+ |--------------------------------------------------------------------------
+ */
+function ensureAuthenticated(req, res, next) {
+  if (!req.headers.authorization) {
+    return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
+  }
+  var token = req.headers.authorization.split(' ')[1];
+
+  var payload = null;
+  try {
+    payload = jwt.decode(token, config.TOKEN_SECRET);
+  }
+  catch (err) {
+    return res.status(401).send({ message: err.message });
+  }
+
+  if (payload.exp <= moment().unix()) {
+    return res.status(401).send({ message: 'Token has expired' });
+  }
+  req.user = payload.sub;
+  next();
+}
+
+/*
+ |--------------------------------------------------------------------------
+ | Generate JSON Web Token
+ |--------------------------------------------------------------------------
+ */
+function createJWT(user) {
+  var payload = {
+    sub: user._id,
+    iat: moment().unix(),
+    exp: moment().add(14, 'days').unix()
+  };
+  return jwt.encode(payload, config.TOKEN_SECRET);
+}
+
+/*
+ |--------------------------------------------------------------------------
+ | GET /api/me
+ |--------------------------------------------------------------------------
+ */
+app.get('/api/me', ensureAuthenticated, function(req, res) {
+  User.findById(req.user, function(err, user) {
+    res.send(user);
+  });
+});
+
+/*
+ |--------------------------------------------------------------------------
+ | PUT /api/me
+ |--------------------------------------------------------------------------
+ */
+app.put('/api/me', ensureAuthenticated, function(req, res) {
+  User.findById(req.user, function(err, user) {
+    if (!user) {
+      return res.status(400).send({ message: 'User not found' });
+    }
+    user.displayName = req.body.displayName || user.displayName;
+    user.email = req.body.email || user.email;
+    user.save(function(err) {
+      res.status(200).end();
+    });
+  });
+});
+
+
+app.get('/api/carpooler', ensureAuthenticated,function(req, res, next) {
   Travel.find({},function(err, carpooler) {
       if (err)
         res.send(err);
@@ -77,14 +156,14 @@ app.get('/api/carpooler', function(req, res, next) {
 
 });
 
-app.get('/api/carpooler/:booking_id', function(req, res, next) { //Get by destination, date, time
+app.get('/api/carpooler/:booking_id',ensureAuthenticated, function(req, res, next) { //Get by destination, date, time
   Travel.findById(req.params.booking_id, function(err, booking) {
     if (err) return next(err);
     res.send(booking);
   });
 });
 
-app.post('/api/carpooler', function (req, res, next) {
+app.post('/api/carpooler',ensureAuthenticated, function (req, res, next) {
    var travel = new Travel();    // create a new instance of the Travel model
     travel.Name = req.body.Name;  // set the event name (comes from the request)
     travel.userEmail=req.body.userEmail;
@@ -103,7 +182,7 @@ app.post('/api/carpooler', function (req, res, next) {
 
 });
 
-app.delete('/api/carpooler/:booking_id', function(req, res) {
+app.delete('/api/carpooler/:booking_id', ensureAuthenticated,function(req, res) {
     Travel.remove({
       _id: req.params.booking_id
     }, function(err, booking) {
@@ -120,135 +199,52 @@ app.delete('/api/carpooler/:booking_id', function(req, res) {
   });
 
 
-function ensureAuthenticated(req, res, next) {
-  if (req.headers.authorization) {
-    var token = req.headers.authorization.split(' ')[1];
-    try {
-      var decoded = jwt.decode(token, tokenSecret);
-      if (decoded.exp <= Date.now()) {
-        res.send(400, 'Access token has expired');
-      } else {
-        req.user = decoded.user;
-        return next();
-      }
-    } catch (err) {
-      return res.send(500, 'Error parsing token');
+
+/*
+ |--------------------------------------------------------------------------
+ | Log in with Email
+ |--------------------------------------------------------------------------
+ */
+app.post('/auth/login', function(req, res) {
+  User.findOne({ email: req.body.email }, '+password', function(err, user) {
+    if (!user) {
+      return res.status(401).send({ message: 'Wrong email and/or password' });
     }
-  } else {
-    return res.send(401);
-  }
-}
-
-function createJwtToken(user) {
-  var payload = {
-    user: user,
-    iat: new Date().getTime(),
-    exp: moment().add('days', 7).valueOf()
-  };
-  return jwt.encode(payload, tokenSecret);
-}
-
-app.post('/auth/signup', function(req, res, next) {
-  var user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
-  });
-  user.save(function(err) {
-    if (err) return next(err);
-    res.send(200);
-  });
-});
-
-app.post('/auth/login', function(req, res, next) {
-  User.findOne({ email: req.body.email }, function(err, user) {
-    if (!user) return res.send(401, 'User does not exist');
     user.comparePassword(req.body.password, function(err, isMatch) {
-      if (!isMatch) return res.send(401, 'Invalid email and/or password');
-      var token = createJwtToken(user);
-      res.send({ token: token });
+      if (!isMatch) {
+        return res.status(401).send({ message: 'Wrong email and/or password' });
+      }
+      res.send({ token: createJWT(user) });
     });
   });
 });
 
-app.post('/auth/facebook', function(req, res, next) {
-  var profile = req.body.profile;
-  var signedRequest = req.body.signedRequest;
-  var encodedSignature = signedRequest.split('.')[0];
-  var payload = signedRequest.split('.')[1];
-
-  var appSecret = 'ca16738dcd74712d3c36938bbb6b1e53';
-
-  var expectedSignature = crypto.createHmac('sha256', appSecret).update(payload).digest('base64');
-  expectedSignature = expectedSignature.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-
-  if (encodedSignature !== expectedSignature) {
-    return res.send(400, 'Invalid Request Signature');
-  }
-
-  User.findOne({ facebook: profile.id }, function(err, existingUser) {
+/*
+ |--------------------------------------------------------------------------
+ | Create Email and Password Account
+ |--------------------------------------------------------------------------
+ */
+app.post('/auth/signup', function(req, res) {
+  User.findOne({ email: req.body.email }, function(err, existingUser) {
     if (existingUser) {
-      var token = createJwtToken(existingUser);
-      return res.send(token);
+      return res.status(409).send({ message: 'Email is already taken' });
     }
     var user = new User({
-      name: profile.name,
-      facebook: {
-        id: profile.id,
-        email: profile.email
-      }
+      displayName: req.body.displayName,
+      email: req.body.email,
+      password: req.body.password
     });
-    user.save(function(err) {
-      if (err) return next(err);
-      var token = createJwtToken(user);
-      res.send(token);
+    user.save(function() {
+      res.send({ token: createJWT(user) });
     });
   });
 });
 
-app.post('/auth/google', function(req, res, next) {
-  var profile = req.body.profile;
-  User.findOne({ google: profile.id }, function(err, existingUser) {
-    if (existingUser) {
-      var token = createJwtToken(existingUser);
-      return res.send(token);
-    }
-    var user = new User({
-      name: profile.displayName,
-      google: {
-        id: profile.id,
-        email: profile.emails[0].value
-      }
-    });
-    user.save(function(err) {
-      if (err) return next(err);
-      var token = createJwtToken(user);
-      res.send(token);
-    });
-  });
-});
-
-app.get('/api/users', function(req, res, next) {
-  if (!req.query.email) {
-    return res.send(400, { message: 'Email parameter is required.' });
-  }
-
-  User.findOne({ email: req.query.email }, function(err, user) {
-    if (err) return next(err);
-    res.send({ available: !user });
-  });
-});
-
-
-app.get('*', function(req, res) {
-  res.redirect('/#' + req.originalUrl);
-});
-
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  res.send(500, { message: err.message });
-});
-
+/*
+ |--------------------------------------------------------------------------
+ | Start the Server
+ |--------------------------------------------------------------------------
+ */
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
