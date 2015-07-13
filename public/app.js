@@ -1,4 +1,4 @@
-angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap','ui.bootstrap'])
+angular.module('carpooler', ['ngResource', 'ngMessages', 'ngRoute', 'ngAnimate', 'mgcrea.ngStrap','ui.bootstrap','satellizer'])
   .config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 

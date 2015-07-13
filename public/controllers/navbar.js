@@ -1,6 +1,6 @@
 angular.module('carpooler')
-  .controller('NavbarCtrl', function($scope, Auth) {
-    $scope.logout = function() {
-      Auth.logout();
-    };
-  });
+      .controller('NavbarCtrl', function($scope, $auth) {
+        $scope.isAuthenticated = function() {
+          return $auth.isAuthenticated();
+        };
+      });
