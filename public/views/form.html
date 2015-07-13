@@ -4,7 +4,7 @@
     <div class="panel-body">
       <form class="form-horizontal" method="post" ng-submit="addTravel()" name="addForm">
 
-      <!-- Name Field -->
+      <!-- Name Field --
 
         <div class="form-group" ng-class="{ 'has-error' : addForm.Name.$invalid && addForm.Name.$dirty }">
           <label class="control-label col-md-4" for="Name">Name:</label>
@@ -16,7 +16,7 @@
           </div>
         </div>
 
-        <!-- User Email -->
+        <!-- User Email --
           <div class="form-group" ng-class="{ 'has-error' : addForm.userEmail.$invalid && addForm.userEmail.$dirty }">
           <label class="control-label col-md-4">Your Email Address:</label>
           <div class="col-md-8">
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <!-- Phone Number field -->
+        <!-- Phone Number field --
 
           <div class="form-group" ng-class="{ 'has-error' : addForm.phoneNum.$invalid && addForm.phoneNum.$dirty }">
           <label class="control-label col-md-4">Phone Number:</label>
@@ -37,7 +37,7 @@
           <div class="help-block text-danger" ng-if="addForm.phoneNum.$dirty" ng-messages="addForm.phoneNum.$error">
             <div ng-message="required">Phone Number is required.Please ensure it is a valid phone number</div>
           </div>
-        </div>
+        </div>-->
 
 
        <div class="form-group" ng-class="{ 'has-error' : addForm.Source.$invalid && addForm.Source.$dirty }">
