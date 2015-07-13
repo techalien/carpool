@@ -140,6 +140,7 @@ app.put('/api/me', ensureAuthenticated, function(req, res) {
     }
     user.displayName = req.body.displayName || user.displayName;
     user.email = req.body.email || user.email;
+    user.phoneNum=req.body.phoneNum || user.phoneNum;
     user.save(function(err) {
       res.status(200).end();
     });
@@ -233,6 +234,7 @@ app.post('/auth/signup', function(req, res) {
     var user = new User({
       displayName: req.body.displayName,
       email: req.body.email,
+      phoneNum:req.body.phoneNum,
       password: req.body.password
     });
     user.save(function() {

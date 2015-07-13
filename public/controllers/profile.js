@@ -27,7 +27,7 @@ angular.module('carpooler')
       Account.updateProfile({
         displayName: $scope.user.displayName,
         email: $scope.user.email,
-        phoneNum:$scope.user.phoneNum
+        phoneNum: $scope.user.phoneNum
       }).then(function() {
         $alert({
           content: 'Profile has been updated',
