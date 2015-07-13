@@ -14,12 +14,14 @@ angular.module('carpooler')
       return $auth.isAuthenticated();
     };
 
-    
+
       $http.get('/api/me')
         .success(function(data){
           $scope.userdata = data;
+          $scope.username = data.displayName;
+          console.log(data);
         });
-        $scope.username = $scope.userdata.displayName;
+        
 
 
     $http.get('/api/carpooler')
@@ -29,7 +31,7 @@ angular.module('carpooler')
             data[i].travelTime = new moment(data[i].travelTime).format("h:mm:ss a");
           }
             $scope.bookings = data;
-            console.log(data);
+            //console.log(data);
         })
         .error(function(data) {
             console.log('Error: ' + data);
