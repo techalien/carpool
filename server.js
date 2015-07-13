@@ -30,6 +30,7 @@ var userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   password: { type: String, select: false },
   displayName: String,
+  phoneNum:String
 });
 
 userSchema.pre('save', function(next) {

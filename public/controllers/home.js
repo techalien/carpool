@@ -21,7 +21,7 @@ angular.module('carpooler')
           $scope.username = data.displayName;
           console.log(data);
         });
-        
+
 
 
     $http.get('/api/carpooler')

@@ -4,7 +4,8 @@ angular.module('carpooler')
       $auth.signup({
         displayName: $scope.displayName,
         email: $scope.email,
-        password: $scope.password
+        password: $scope.password,
+        phoneNum:$scope.phoneNum
       }).catch(function(response) {
         if (typeof response.data.message === 'object') {
           angular.forEach(response.data.message, function(message) {

@@ -13,7 +13,7 @@ angular.module('carpooler')
           $alert({
             content: error.message,
             animation: 'fadeZoomFadeDown',
-            type: 'material',
+            type: 'info',
             duration: 3
           });
         });
@@ -26,12 +26,13 @@ angular.module('carpooler')
     $scope.updateProfile = function() {
       Account.updateProfile({
         displayName: $scope.user.displayName,
-        email: $scope.user.email
+        email: $scope.user.email,
+        phoneNum:$scope.user.phoneNum
       }).then(function() {
         $alert({
           content: 'Profile has been updated',
           animation: 'fadeZoomFadeDown',
-          type: 'material',
+          type: 'info',
           duration: 3
         });
       });

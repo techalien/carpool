@@ -4,6 +4,3 @@ angular.module('carpooler')
           return $auth.isAuthenticated();
         };
       });
-
-
-    
