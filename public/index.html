@@ -13,8 +13,15 @@
 <body>
     <div ng-controller="NavbarCtrl" class="navbar navbar-default navbar-static-top">
       <div class="navbar-header">
+        <button aria-expanded="true" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <a class="navbar-brand" href="/"><i class="ion-model-s"></i> poolYourCar</a>
       </div>
+      <div style="" aria-expanded="true" class="navbar-collapse collapse in" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
         <li><a href="/#/">Home</a></li>
         <li ng-if="isAuthenticated()"><a href="/#/travels">Travel Log</a></li>
@@ -28,6 +35,7 @@
      <li><a href="/#/logout">Logout</a></li>
    </ul>
     </div>
+  </div>
 
 
 <div ui-view class="fadeZoom"></div>
