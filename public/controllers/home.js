@@ -10,10 +10,8 @@ angular.module('carpooler')
     $scope.userdata= {};
 
     $scope.isAuthenticated = function() {
-
       return $auth.isAuthenticated();
     };
-
 
       $http.get('/api/me')
         .success(function(data){
@@ -21,8 +19,6 @@ angular.module('carpooler')
           $scope.username = data.displayName;
           console.log(data);
         });
-
-
 
     $http.get('/api/carpooler')
         .success(function(data) {
