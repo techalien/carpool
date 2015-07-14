@@ -33,6 +33,7 @@ h6 {
 .intro-header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
+    margin-top: -30px;
     text-align: center;
     color: #f8f8f8;
     background: url(../img/intro-bg.jpg) no-repeat center center;
@@ -47,8 +48,9 @@ h6 {
 
 .intro-message > h1 {
     margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(10,0,10,0.5);
     font-size: 5em;
+    color: white;
 }
 
 .intro-divider {
@@ -58,7 +60,9 @@ h6 {
 }
 
 .intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+  text-shadow: 2px 2px 3px rgba(10,0,10,0.5);
+        color: white;
+
 }
 
 @media(max-width:767px) {
