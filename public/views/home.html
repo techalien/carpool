@@ -2,7 +2,8 @@
 
         <!-- HEADER AND COUNT -->
         <div class="jumbotron text-center" >
-            <h1>Hi {{username}}! <!--<span class="label label-info">{{ bookings.length }}</span>--></h1>
+            <h1>Hi {{username}}! Total bookings on poolYourCar: <span class="label label-primary">{{ bookings.length }}</span></h1>
+
         </div>
 
         <!-- LIST -->
@@ -59,7 +60,7 @@
                             <th>Time</th>
                           </tr>
                         </thead>
-                        <tbody ng-repeat="booking in bookings | filter:{Source:bookingReference.Source,Destination:bookingReference.Destination,travelDate:bookingReference.travelDate}">
+                        <tbody ng-repeat="booking in bookings | filter:{Source:bookingReference.Source,Destination:bookingReference.Destination,travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName}">
                           <tr>
                             <td>{{booking.Name}}</td>
                             <td>{{booking.userEmail}}</td>
@@ -82,7 +83,7 @@
                       <div class="jumbotron text-center">
                         <h1 class="label label-primary">'Find!'</h1>
                       </div>
-                        <h2>Click the find button to get results!</h2>
+                        <h2 class="text-center">Find others!</h2>
                     </div>
                   </div>
                 </div>
