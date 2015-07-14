@@ -10,6 +10,18 @@ angular.module('carpooler')
       $scope.dt = null;
     };
 
+    $scope.places = [
+      'Shiv Nadar University',
+      'IGI Airport Delhi ( International )',
+      'IGI Airport Delhi ( Domestic )',
+      'New Delhi Railway Station',
+      'Hazrat Nizamuddin Railway Station',
+      'Noida Sector 18 ( GIP )',
+      'Ansal Plaza / MSX Mall',
+      'Ghaziabad',
+      'Gurgaon',
+      'Other'
+    ];
     // Disable weekend selection
     $scope.disabled = function(date, mode) {
       return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );

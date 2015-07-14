@@ -1,11 +1,16 @@
 angular.module('carpooler', ['ngResource', 'ngMessages', 'ui.router','ngAnimate', 'mgcrea.ngStrap','ui.bootstrap', 'satellizer'])
     .config(function($stateProvider, $urlRouterProvider, $authProvider) {
       $stateProvider
-        .state('home', {
-          url: '/',
-          templateUrl: 'views/home.html',
-          controller:'MainCtrl'
-        })
+      .state('landing', {
+        url: '/',
+        templateUrl: 'views/landing.html',
+        controller:'LandCtrl'
+      })
+      .state('home', {
+        url: '/home',
+        templateUrl: 'views/home.html',
+        controller:'MainCtrl'
+      })
         .state('travels', {
         url:'/travels',
        templateUrl: 'views/form.html',

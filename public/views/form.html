@@ -43,7 +43,9 @@
        <div class="form-group" ng-class="{ 'has-error' : addForm.Source.$invalid && addForm.Source.$dirty }">
        <label class="control-label col-md-4">Source:</label>
        <div class="col-md-8">
-       <input class="form-control" type="text" name="Source" ng-model="Source" placeholder="travel start source" required autofocus>
+       <select class="form-control" name="Source" ng-model="Source" placeholder="travel start source" required autofocus>
+         <option ng-repeat="option in places">{{option}}</option>
+       </select>
      </div>
        <div class="help-block text-danger" ng-if="addForm.Source.$dirty" ng-messages="addForm.Source.$error">
          <div ng-message="required">Travel source is required.</div>
@@ -53,7 +55,9 @@
      <div class="form-group" ng-class="{ 'has-error' : addForm.Destination.$invalid && addForm.Destination.$dirty }">
      <label class="control-label col-md-4">Destination:</label>
      <div class="col-md-8">
-     <input class="form-control" type="text" name="Destination" ng-model="Destination" placeholder="travel Destination" required autofocus>
+     <select class="form-control"  name="Destination" ng-model="Destination" placeholder="travel Destination" required autofocus>
+       <option ng-repeat="option in places">{{option}}</option>
+    </select>
    </div>
      <div class="help-block text-danger" ng-if="addForm.Destination.$dirty" ng-messages="addForm.Destination.$error">
        <div ng-message="required">Travel Destination is required.</div>

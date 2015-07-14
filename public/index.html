@@ -20,11 +20,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><i class="ion-model-s"></i> poolYourCar</a>
+        <a class="navbar-brand" href="/" ng-if="!isAuthenticated()"><i class="ion-model-s"></i> poolYourCar</a>
+        <a class="navbar-brand" href="/#/home" ng-if="isAuthenticated()"><i class="ion-model-s"></i> poolYourCar</a>
       </div>
       <div style="" aria-expanded="false" class="navbar-collapse collapse in" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav">
-        <li><a href="/#/">Home</a></li>
+        <li ng-if="isAuthenticated()"><a href="/#/">Home</a></li>
         <li ng-if="isAuthenticated()"><a href="/#/travels">Travel Log</a></li>
         <li ng-if="isAuthenticated()"><a href="/#/profile">Profile</a></li>
       </ul>
@@ -58,6 +59,7 @@
 
 <script src="directives/passwordmatch.js"></script>
 <script src="directives/passwordstrength.js"></script>
+<script src="controllers/landing.js"></script>
 
 <script src="controllers/navbar.js"></script>
 <script src="controllers/login.js"></script>
