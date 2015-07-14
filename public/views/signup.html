@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.phoneNum.$invalid && signupForm.phoneNum.$dirty }">
-            <input class="form-control input-lg" type="number" name="phoneNum" ng-model="phoneNum" placeholder="Phone Number" required autofocus>
+            <input class="form-control input-lg" type="tel" name="phoneNum" ng-model="phoneNum" placeholder="Phone Number" required autofocus>
             <span class="ion-person form-control-feedback"></span>
             <div class="help-block text-danger" ng-if="signupForm.phoneNum.$dirty" ng-messages="signupForm.phoneNum.$error">
               <div ng-message="required">You must enter your phone Number.</div>
