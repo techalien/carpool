@@ -28,5 +28,6 @@
     "nodemailer": "^0.6.3",
     "request": "^2.34.0",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "main": "server.js"
 }

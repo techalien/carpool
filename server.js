@@ -62,7 +62,8 @@ mongoose.connection.on('error', function(err) {
 
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
+//app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 3000);
 app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
