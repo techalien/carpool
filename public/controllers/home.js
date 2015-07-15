@@ -17,6 +17,7 @@ angular.module('carpooler')
         .success(function(data){
           $scope.userdata = data;
           $scope.username = data.displayName;
+          $scope.useremail = data.email;
           console.log(data);
         });
 

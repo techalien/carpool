@@ -26,7 +26,7 @@
                             <th>Find others</th>
                           </tr>
                         </thead>
-                        <tbody ng-repeat="booking in filteredBookings=( bookings | filter:username)">
+                        <tbody ng-repeat="booking in filteredBookings=( bookings | filter:useremail)">
                           <tr>
                             <td><input type="checkbox" ng-click="deleteBooking(booking._id)"></td>
                             <!--  <td>{{ booking.Name }}</td>
