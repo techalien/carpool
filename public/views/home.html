@@ -2,18 +2,17 @@
 
         <!-- HEADER AND COUNT -->
         <div class="jumbotron text-center" >
-            <h1>Hi {{username}}! </h1> 
+            <h1>Hi {{username}}! </h1>
             <h3>Total bookings on poolYourCar: <span class="label label-primary">{{ bookings.length }}</span></h3>
-
+            <h4 ng-if="username.length == 0">Reload if you dont see your Name!</h4>
         </div>
-
         <!-- LIST -->
             <div class="row" >
               <div class="col-md-6">
                 <div class="panel panel-default">
-                  <div class="panel-heading">Your bookings</div>
+                  <div class="panel-heading">Your bookings: <span class="label label-primary">{{filteredBookings.length}}</span></div>
                   <div class="panel-body">
-                    <table class="table table-striped table-hover ">
+                    <table class="table table-striped table-hover" ng-show="username.length > 0">
                       <thead>
                         <tr>
                           <th>Delete?</th>
@@ -27,7 +26,7 @@
                             <th>Find others</th>
                           </tr>
                         </thead>
-                        <tbody ng-repeat="booking in bookings | filter:username">
+                        <tbody ng-repeat="booking in filteredBookings=( bookings | filter:username)">
                           <tr>
                             <td><input type="checkbox" ng-click="deleteBooking(booking._id)"></td>
                             <!--  <td>{{ booking.Name }}</td>
@@ -41,13 +40,17 @@
                           </tr>
                         </tbody>
                       </table>
+                      <div ng-if="filteredBookings.length == 0">
+                        <h4>No bookings found. Use the <a href="/#/travels">Book</a> option to start carpooling!</h4>
+                        <small>If you dont see your name above,try reloading.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <!--Result output-->
                 <div class="col-md-6 col-centered" ng-show="status2">
                   <div class="panel panel-default">
-                    <div class="panel-heading">Others travelling the same as you</div>
+                    <div class="panel-heading"><span class="label label-primary" ng-if="filteredResult.length > 0">{{filteredResult.length}}</span> Others travelling the same as you</div>
                     <div class="panel-body">
                       <table class="table table-striped table-hover ">
                         <thead>
@@ -61,7 +64,7 @@
                             <th>Time</th>
                           </tr>
                         </thead>
-                        <tbody ng-repeat="booking in bookings | filter:{Source:bookingReference.Source,Destination:bookingReference.Destination,travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName}">
+                        <tbody ng-repeat="booking in filteredResult = (bookings | filter:{Source:bookingReference.Source,Destination:bookingReference.Destination,travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
                           <tr>
                             <td>{{booking.Name}}</td>
                             <td>{{booking.userEmail}}</td>
@@ -73,6 +76,11 @@
                           </tr>
                         </tbody>
                       </table>
+
+                    <div ng-show="filteredResult.length == 0">
+                      <h4>Aww snap! There aren't any travellers on your chosen booking!</h4>
+                      <small>Try booking to an alternate destination or check back soon!</small>
+                    </div>
                     </div>
                   </div>
                 </div>
