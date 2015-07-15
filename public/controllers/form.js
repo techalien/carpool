@@ -1,5 +1,5 @@
 angular.module('carpooler')
-  .controller('AddCtrl', function($scope, $alert, Travel,$filter,$http) {
+  .controller('AddCtrl', function($scope, $alert, Travel,$filter,$http,$location) {
     $scope.message_head = "Start finding your carpoolers!";
     $scope.today = function() {
       $scope.dt = new Date();
@@ -111,6 +111,7 @@ angular.module('carpooler')
           $scope.travelDate='';
           $scope.travelTime='';
           $scope.addForm.$setPristine();
+          $location.url('/home');
           $alert({
             content: 'travel request has been logged.',
             animation: 'fadeZoomFadeDown',
