@@ -56,7 +56,7 @@
      <label class="control-label col-md-4">Destination:</label>
      <div class="col-md-8">
      <select class="form-control"  name="Destination" ng-model="Destination" placeholder="travel Destination" required autofocus>
-       <option ng-repeat="option in places">{{option}}</option>
+       <option ng-repeat="option in places | filter:'!' + Source">{{option}}</option>
     </select>
    </div>
      <div class="help-block text-danger" ng-if="addForm.Destination.$dirty" ng-messages="addForm.Destination.$error">
