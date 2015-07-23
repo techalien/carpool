@@ -49,34 +49,25 @@ angular.module('carpooler')
                     console.log('Error: ' + data);
                 });
         };
-var directionsService = new google.maps.DirectionsService();
-function calcRoute(ref1,ref2) {
-  var start = String(ref1);
-  var end = String(ref2);
-  var args = {
-      origin:start,
-      destination:end,
-      travelMode: google.maps.TravelMode.DRIVING
-  }
-   directionsService.route(args, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
+        var directionsService = new google.maps.DirectionsService();
+        function calcRoute(ref1,ref2) {
+          var start = String(ref1);
+          var end = String(ref2);
+          var args = {
+              origin:start,
+              destination:end,
+              travelMode: google.maps.TravelMode.DRIVING
+          }
+           distance = directionsService.route(args, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+              return response.routes[0].legs[0].distance.value;
+            } else {
+              alert("fail");
+            }
+          });
 
-
-           var myroute=directionsDisplay.directions.routes[0];
-    } else {
-      alert("fail");
-    }
-  });
-
-  var distance= 0;
-for(i = 0; i < myroute.legs.length; i++){
-   distance += myroute.legs[i].distance.value;
-       //for each 'leg'(route between two waypoints) we get the distance and add it to the total
-}
-
-  return distance;
-};
+          return distance;
+        };
         $scope.getRes = function(id) {
           $scope.bookingReference = {};
           $http.get('/api/carpooler/'+id)
@@ -84,18 +75,20 @@ for(i = 0; i < myroute.legs.length; i++){
               data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
               data.travelTime = new moment(data.travelTime).format("h:mm:ss a");
               $scope.bookingReference = data;
+
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
 
-            for(i = 0;i<$scope.bookings.length;i++) {
-              dd = calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination);
-            if( dd < 5000) {// 5 KM
-              $scope.bookingResultArray.push($scope.bookings[i]);
+                          for(i = 0;i<$scope.bookings.length;i++) {
+                            dd = calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination);
+                          if( dd < 5000) {// 5 KM
+                            $scope.bookingResultArray.push($scope.bookings[i]);
+                          }
+                        }
 
-            }
-          }
+
           $scope.status2 = true;
         };
 
