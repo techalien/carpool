@@ -87,8 +87,13 @@ angular.module('carpooler')
             .error(function(data) {
                 console.log('Error: ' + data);
             });
+
+          for(var i = 0;i<$scope.bookings.length;i++) {
+            if(distance[i] < 5000 || $scope.bookings.Destination === $scope.bookingReference.Destination) {
+              $scope.bookingResultArray.push($scope.bookings[i]);
+            }
+          }
           $scope.status2 = true;
-          console.log(distance);
         };
 
 
