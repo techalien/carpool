@@ -51,8 +51,8 @@ angular.module('carpooler')
         };
 
 function calcRoute(ref1,ref2) {
-  var start = ref1;
-  var end = ref2;
+  var start = String(ref1);
+  var end = String(ref2);
   var request = {
       origin:start,
       destination:end,
