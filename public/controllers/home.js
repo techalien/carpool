@@ -49,39 +49,26 @@ angular.module('carpooler')
                     console.log('Error: ' + data);
                 });
         };
+        var distance =[] ;
         var directionsService = new google.maps.DirectionsService();
-        function calcRoute() {
-          var resarray = [];
-          for(var i = 0;i<$scope.bookings.length;i++) {
-            console.log("iter check" + i);
-          var start = $scope.bookings[i].Destination;
-          var end = $scope.bookingReference.Destination;
+        function calcRoute(p1,p2,callback) {
+          var start = p1;
+          var end = p2;
           var args = {
               origin:start,
               destination:end,
               travelMode: google.maps.TravelMode.DRIVING
           }
-           distance = directionsService.route(args, function(response, status) {
+          directionsService.route(args, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 //alert(response.routes[0].legs[0].distance.value);
-
-              distance = response.routes[0].legs[0].distance.value;
-              console.log(i,distance);
-            //  alert($scope.bookings.length);
-              //if(distance < 5000 || $scope.bookings[i].Destination === $scope.bookingReference.Destination) {
-                //$scope.bookingResultArray.push($scope.bookings[i]);
-              //}
-
-              if(i === $scope.bookings.length) {
-              //  alert($scope.bookingResultArray.length);
-              }
+              callback(response.routes[0].legs[0].distance.value);
             } else {
               alert("fail");
             }
-
           });
-        }
         };
+
 
         $scope.getRes = function(id) {
           $scope.bookingResultArray = [];
@@ -91,12 +78,17 @@ angular.module('carpooler')
               data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
               data.travelTime = new moment(data.travelTime).format("h:mm:ss a");
               $scope.bookingReference = data;
-              calcRoute();
+              for(var i = 0;i<$scope.bookings.length;i++) {
+                calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination,callback(dist){
+                  distance.push(dist);
+                });
+              }
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
           $scope.status2 = true;
+          console.log(distance);
         };
 
 
