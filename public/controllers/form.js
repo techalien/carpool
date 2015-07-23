@@ -9,7 +9,7 @@ angular.module('carpooler')
     $scope.clear = function () {
       $scope.dt = null;
     };
-
+     $scope.place = null;
     $scope.places = [
       'Shiv Nadar University',
       'IGI Airport Delhi ( International )',

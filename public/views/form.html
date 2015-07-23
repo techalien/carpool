@@ -3,6 +3,9 @@
     <div class="panel-heading text-center">{{message_head}}</div>
     <div class="panel-body">
       <form class="form-horizontal" method="post" ng-submit="addTravel()" name="addForm">
+          <input type="text" g-places-autocomplete ng-model="place"/> />
+          <h5>Result:</h5>
+            <pre>{{place | json}}</pre>
 
       <!-- Name Field --
 
