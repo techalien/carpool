@@ -8,7 +8,7 @@ angular.module('carpooler')
       $scope.status1 = false;
     };*/
     $scope.userdata= {};
-
+    $scope.bookingResultArray = [];
     $scope.isAuthenticated = function() {
       return $auth.isAuthenticated();
     };
@@ -50,9 +50,10 @@ angular.module('carpooler')
                 });
         };
         var directionsService = new google.maps.DirectionsService();
-        function calcRoute(ref1,ref2) {
-          var start = String(ref1);
-          var end = String(ref2);
+        function calcRoute() {
+          for(i = 0;i<$scope.bookings.length;i++) {
+          var start = $scope.bookings[i].Destination;
+          var end = $scope.bookingReference.Destination;
           var args = {
               origin:start,
               destination:end,
@@ -60,36 +61,32 @@ angular.module('carpooler')
           }
            distance = directionsService.route(args, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-              return response.routes[0].legs[0].distance.value;
+                //alert(response.routes[0].legs[0].distance.value);
+              distance = response.routes[0].legs[0].distance.value;
+              alert(distance);
+              if(distance < 5000) {
+                $scope.bookingResultArray.push($scope.bookings[i]);
+              }
             } else {
               alert("fail");
             }
           });
-
-          return distance;
+        }
         };
+
         $scope.getRes = function(id) {
+          $scope.bookingResultArray = [];
           $scope.bookingReference = {};
           $http.get('/api/carpooler/'+id)
             .success(function(data) {
               data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
               data.travelTime = new moment(data.travelTime).format("h:mm:ss a");
               $scope.bookingReference = data;
-
+              calcRoute();
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
-
-                          for(i = 0;i<$scope.bookings.length;i++) {
-                            alert($scope.bookings[i].Destination,$scope.bookingReference.Destination);
-                            dd = calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination);
-                          if( dd < 5000) {// 5 KM
-                            $scope.bookingResultArray.push($scope.bookings[i]);
-                          }
-                        }
-
-
           $scope.status2 = true;
         };
 
