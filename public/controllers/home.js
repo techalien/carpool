@@ -1,5 +1,5 @@
 angular.module('carpooler')
-  .controller('MainCtrl',function($scope,$http, Travel,moment,$auth){
+  .controller('MainCtrl',function($scope,$http, Travel,moment,$auth,googleDirections){
 
     $scope.formData = {};
 
@@ -49,6 +49,20 @@ angular.module('carpooler')
                     console.log('Error: ' + data);
                 });
         };
+
+function calcRoute(ref1,ref2) {
+  var start = ref1;
+  var end = ref2;
+  var request = {
+      origin:start,
+      destination:end,
+      travelMode: 'driving'
+  };
+  dist = googleDirections.getDirections(request).then(function(directions) {
+    return directions.routes[0].legs[0].distance.value;
+  });
+  return dist;
+};
         $scope.getRes = function(id) {
           $scope.bookingReference = {};
           $http.get('/api/carpooler/'+id)
@@ -60,7 +74,12 @@ angular.module('carpooler')
             .error(function(data) {
                 console.log('Error: ' + data);
             });
-            $scope.status2 = true;
+            for(i = 0;i<$scope.bookings.length;i++) {
+              dd = calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination);
+            if( dd < 5000) {// 5 KM
+              $scope.bookingResultArray.push($scope.bookings[i]);
+            }
+          }
         };
 
 

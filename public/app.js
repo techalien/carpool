@@ -1,4 +1,4 @@
-angular.module('carpooler', ['ngResource', 'ngMessages', 'ui.router','ngAnimate', 'google.places','mgcrea.ngStrap','ui.bootstrap', 'satellizer'])
+angular.module('carpooler', ['ngResource', 'ngMessages', 'ui.router','ngAnimate','dbaq.google.directions','mgcrea.ngStrap','ui.bootstrap', 'satellizer'])
     .config(function($stateProvider, $urlRouterProvider, $authProvider) {
       $stateProvider
       .state('landing', {

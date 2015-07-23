@@ -3,9 +3,7 @@
     <div class="panel-heading text-center">{{message_head}}</div>
     <div class="panel-body">
       <form class="form-horizontal" method="post" ng-submit="addTravel()" name="addForm">
-          <input type="text" g-places-autocomplete ng-model="place"/> />
-          <h5>Result:</h5>
-            <pre>{{place | json}}</pre>
+
 
       <!-- Name Field --
 
@@ -43,7 +41,7 @@
         </div>-->
 
 
-       <div class="form-group" ng-class="{ 'has-error' : addForm.Source.$invalid && addForm.Source.$dirty }">
+      <!-- <div class="form-group" ng-class="{ 'has-error' : addForm.Source.$invalid && addForm.Source.$dirty }">
        <label class="control-label col-md-4">Source:</label>
        <div class="col-md-8">
        <select class="form-control" name="Source" ng-model="Source" placeholder="travel start source" required autofocus>
@@ -53,14 +51,24 @@
        <div class="help-block text-danger" ng-if="addForm.Source.$dirty" ng-messages="addForm.Source.$error">
          <div ng-message="required">Travel Source is required.</div>
        </div>
-     </div>
+     </div> -->
+
+     <div class="form-group" ng-class="{ 'has-error' : addForm.Source.$invalid && addForm.Source.$dirty }">
+      <label class="control-label col-md-4">Source:</label>
+      <div class="col-md-8">
+      <input class="form-control" name="Source"  ng-model="Source" placeholder="travel start source" required autofocus googleplace/>
+
+
+    </div>
+      <div class="help-block text-danger" ng-if="addForm.Source.$dirty" ng-messages="addForm.Source.$error">
+        <div ng-message="required">Travel Source is required.</div>
+      </div>
+    </div>
 
      <div class="form-group" ng-class="{ 'has-error' : addForm.Destination.$invalid && addForm.Destination.$dirty }">
      <label class="control-label col-md-4">Destination:</label>
      <div class="col-md-8">
-     <select class="form-control"  name="Destination" ng-model="Destination" placeholder="travel Destination" required autofocus>
-       <option ng-repeat="option in places | filter:'!' + Source">{{option}}</option>
-    </select>
+     <input class="form-control" name="Destination"  ng-model="Destination" placeholder="travel destination" required autofocus googleplace/>
    </div>
      <div class="help-block text-danger" ng-if="addForm.Destination.$dirty" ng-messages="addForm.Destination.$error">
        <div ng-message="required">Travel Destination is required.</div>
