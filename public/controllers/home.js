@@ -82,6 +82,7 @@ angular.module('carpooler')
             });
 
                           for(i = 0;i<$scope.bookings.length;i++) {
+                            alert($scope.bookings[i].Destination,$scope.bookingReference.Destination);
                             dd = calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination);
                           if( dd < 5000) {// 5 KM
                             $scope.bookingResultArray.push($scope.bookings[i]);
