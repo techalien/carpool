@@ -8,7 +8,7 @@ angular.module('carpooler')
       $scope.status1 = false;
     };*/
     $scope.userdata= {};
-    $scope.bookingResultArray = [];
+
     $scope.isAuthenticated = function() {
       return $auth.isAuthenticated();
     };
@@ -51,7 +51,9 @@ angular.module('carpooler')
         };
         var directionsService = new google.maps.DirectionsService();
         function calcRoute() {
-          for(i = 0;i<$scope.bookings.length;i++) {
+          var resarray = [];
+          for(var i = 0;i<$scope.bookings.length;i++) {
+            console.log("iter check" + i);
           var start = $scope.bookings[i].Destination;
           var end = $scope.bookingReference.Destination;
           var args = {
@@ -62,14 +64,21 @@ angular.module('carpooler')
            distance = directionsService.route(args, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 //alert(response.routes[0].legs[0].distance.value);
+
               distance = response.routes[0].legs[0].distance.value;
-              alert(distance);
-              if(distance < 5000) {
-                $scope.bookingResultArray.push($scope.bookings[i]);
+              console.log(i,distance);
+            //  alert($scope.bookings.length);
+              //if(distance < 5000 || $scope.bookings[i].Destination === $scope.bookingReference.Destination) {
+                //$scope.bookingResultArray.push($scope.bookings[i]);
+              //}
+
+              if(i === $scope.bookings.length) {
+              //  alert($scope.bookingResultArray.length);
               }
             } else {
               alert("fail");
             }
+
           });
         }
         };
