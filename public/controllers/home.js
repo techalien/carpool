@@ -27,10 +27,10 @@ angular.module('carpooler')
           for(i = 0;i<data.length;i++) {
             data[i].travelDate = new moment(data[i].travelDate).format("MMM Do YYYY");
             data[i].travelTime = new moment(data[i].travelTime).format("h:mm a");
-            if(data[i].Source === 'Indira Gandhi International Airport, New Delhi, Delhi, India') {
+            if(data[i].Source === 'Indira Gandhi International Airport, New Delhi, Delhi, India' || data[i].Source === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India') {
               data[i].Source = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
             }
-            if(data[i].Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India') {
+            if(data[i].Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India' || data[i].Destination === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India') {
               data[i].Destination = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
             }
           }
