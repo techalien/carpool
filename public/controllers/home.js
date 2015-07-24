@@ -1,8 +1,6 @@
 angular.module('carpooler')
   .controller('MainCtrl',function($scope,$http, Travel,moment,$auth,googleDirections){
-    if(window.innerHeight > window.innerWidth){
-    alert("Please use Landscape orientation for best result!");
-}
+
     $scope.formData = {};
 
     /*$scope.getUser = function() {
@@ -28,7 +26,13 @@ angular.module('carpooler')
         .success(function(data) {
           for(i = 0;i<data.length;i++) {
             data[i].travelDate = new moment(data[i].travelDate).format("MMM Do YYYY");
-            data[i].travelTime = new moment(data[i].travelTime).format("h:mm:ss a");
+            data[i].travelTime = new moment(data[i].travelTime).format("h:mm a");
+            if(data[i].Source === 'Indira Gandhi International Airport, New Delhi, Delhi, India') {
+              data[i].Source = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
+            }
+            if(data[i].Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India') {
+              data[i].Destination = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
+            }
           }
             $scope.bookings = data;
             //console.log(data);
@@ -43,7 +47,7 @@ angular.module('carpooler')
                 .success(function(data) {
                   for(i = 0;i<data.length;i++) {
                     data[i].travelDate = new moment(data[i].travelDate).format("MMM Do YYYY");
-                    data[i].travelTime = new moment(data[i].travelTime).format("h:mm:ss a");
+                    data[i].travelTime = new moment(data[i].travelTime).format("h:mm a");
                   }
                     $scope.bookings = data;
                     console.log(data);
@@ -81,7 +85,7 @@ angular.module('carpooler')
           $http.get('/api/carpooler/'+id)
             .success(function(data) {
               data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
-              data.travelTime = new moment(data.travelTime).format("h:mm:ss a");
+              data.travelTime = new moment(data.travelTime).format("h:mm a");
               $scope.bookingReference = data;
               console.log("started");
               $scope.status3=true;
