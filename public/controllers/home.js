@@ -66,7 +66,7 @@ angular.module('carpooler')
             if (status == google.maps.DirectionsStatus.OK) {
                 //alert(response.routes[0].legs[0].distance.value);
               //  console.log(response.routes[0].legs[0].distance.value);
-              callback(response.routes[0].legs[0].distance.value);
+              callback(response);
             }
           });
         };
@@ -85,6 +85,7 @@ angular.module('carpooler')
               for(var i = 0;i<$scope.bookings.length;i++) {
                calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination,function(dist){
                   $scope.distance.push(dist);
+                  console.log($scope.distance[0].request.destination);
                   if($scope.distance.length === $scope.bookings.length) {
                     console.log("do something");
                     $scope.doSomething();
@@ -101,17 +102,22 @@ angular.module('carpooler')
 
         $scope.doSomething= function() {
           $scope.bookingResultArray = [];
-         //while($scope.distance.length < $scope.bookings.length) {console.log($scope.distance.length);}
-           //console.log($scope.distance);
-        //  console.log("length" + $scope.distance.length);
         for(var i = 0;i<$scope.bookings.length;i++) {
-          if($scope.distance[i] >= 0 && $scope.distance[i] <=5000 ) {//|| $scope.bookings[i].Destination === $scope.bookingReference.Destination
-            $scope.bookingResultArray.push($scope.bookings[i]);
+          if($scope.bookings[i].Source === $scope.bookingReference.Source) {
+            for(var j = 0;j<$scope.distance.length;j++) {
+              if(($scope.distance[j].request.origin === $scope.bookings[i].Destination)&&($scope.distance[j].request.destination === $scope.bookingReference.Destination)) {
+                if($scope.distance[j].routes[0].legs[0].distance.value <= 5000){
+                  $scope.bookingResultArray.push($scope.bookings[i]);
+                  break;
+                }
+              }
+            }
           }
         }
-        console.log($scope.distance);
-        console.log($scope.bookings);
+        //console.log($scope.distance);
+        //console.log($scope.bookings);
         console.log($scope.bookingResultArray);
+        console.log($scope.distance.length);
         //console.log($scope.status2);
         $scope.$apply(function(){
           $scope.status3 = true;
