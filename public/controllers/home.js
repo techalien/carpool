@@ -92,6 +92,12 @@ angular.module('carpooler')
             .success(function(data) {
               data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
               data.travelTime = new moment(data.travelTime).format("h:mm a");
+              if(data.Source === 'Indira Gandhi International Airport, New Delhi, Delhi, India'|| data.Source === 'I.G.I. Airport, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Source === 'I.G.I. Airport Metro Station, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Source === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India'|| data.Source === 'igi airport, Barakhamba, New Delhi, Delhi, India') {
+                data.Source = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
+              }
+              if(data.Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India'|| data.Destination === 'I.G.I. Airport, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Destination === 'I.G.I. Airport Metro Station, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Destination === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India'|| data.Destination === 'igi airport, Barakhamba, New Delhi, Delhi, India') {
+                data.Destination = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
+              }
               $scope.bookingReference = data;
               console.log("started");
               $scope.status3=true;
