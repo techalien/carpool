@@ -2,14 +2,14 @@
 
 
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   background: url(http://subtlepatterns.com/patterns/concrete_seamless.png) repeat;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Lato', Georgia, Times, serif;
 }
 p, div {
-    font-family: 'Merriweather', Helvetica, Arial, sans-serif;
+    font-family: 'Ubuntu', Helvetica, Arial, sans-serif;
 }
 a {
   color: #000;
