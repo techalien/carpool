@@ -65,9 +65,7 @@ angular.module('carpooler')
             if (status == google.maps.DirectionsStatus.OK) {
                 //alert(response.routes[0].legs[0].distance.value);
               callback(response.routes[0].legs[0].distance.value);
-            } else {
-              alert("fail");
-            }
+            } 
           });
         };
 

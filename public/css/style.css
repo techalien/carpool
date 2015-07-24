@@ -1,10 +1,14 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.panel {
+  border-color: #cfd9D7;
+  border-radius: 2px;
+  box-shadow: 0 8px 17px rgba(0, 0, 0, .2);
 }
 
-a {
-  color: #00B7FF;
+.panel-default > .panel-heading {
+  font-size: 85%;
+  font-weight: bold;
+  color: #444;
+  text-transform: uppercase;
+  background-color: #f6f6f6;
+  border-color: #cfd9db;
 }
-
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
