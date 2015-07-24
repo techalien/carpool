@@ -1,6 +1,8 @@
 angular.module('carpooler')
   .controller('MainCtrl',function($scope,$http, Travel,moment,$auth,googleDirections){
-
+    if(window.innerHeight > window.innerWidth){
+    alert("Please use Landscape orientation for best result!");
+}
     $scope.formData = {};
 
     /*$scope.getUser = function() {
