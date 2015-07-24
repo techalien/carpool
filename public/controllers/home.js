@@ -73,6 +73,7 @@ angular.module('carpooler')
 
 
         $scope.getRes = function(id) {
+
           $scope.bookingResultArray = [];
           $scope.bookingReference = {};
           $scope.distance = [];
@@ -81,11 +82,11 @@ angular.module('carpooler')
               data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
               data.travelTime = new moment(data.travelTime).format("h:mm:ss a");
               $scope.bookingReference = data;
-
+              console.log("started");
               for(var i = 0;i<$scope.bookings.length;i++) {
                calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination,function(dist){
                   $scope.distance.push(dist);
-                  console.log($scope.distance[0].request.destination);
+                //  console.log($scope.distance[0].request.destination);
                   if($scope.distance.length === $scope.bookings.length) {
                     console.log("do something");
                     $scope.doSomething();
@@ -105,6 +106,7 @@ angular.module('carpooler')
         for(var i = 0;i<$scope.bookings.length;i++) {
           if($scope.bookings[i].Source === $scope.bookingReference.Source) {
             for(var j = 0;j<$scope.distance.length;j++) {
+              console.log($scope.distance[j].routes[0].legs[0].distance.value);
               if(($scope.distance[j].request.origin === $scope.bookings[i].Destination)&&($scope.distance[j].request.destination === $scope.bookingReference.Destination)) {
                 if($scope.distance[j].routes[0].legs[0].distance.value <= 5000){
                   $scope.bookingResultArray.push($scope.bookings[i]);
@@ -117,7 +119,8 @@ angular.module('carpooler')
         //console.log($scope.distance);
         //console.log($scope.bookings);
         console.log($scope.bookingResultArray);
-        console.log($scope.distance.length);
+        console.log("success");
+        //console.log($scope.distance.length);
         //console.log($scope.status2);
         $scope.$apply(function(){
           $scope.status3 = true;
