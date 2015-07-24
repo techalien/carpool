@@ -73,7 +73,8 @@ angular.module('carpooler')
 
 
         $scope.getRes = function(id) {
-
+          $scope.status2=false;
+          $scope.status3 = false;
           $scope.bookingResultArray = [];
           $scope.bookingReference = {};
           $scope.distance = [];
@@ -83,6 +84,7 @@ angular.module('carpooler')
               data.travelTime = new moment(data.travelTime).format("h:mm:ss a");
               $scope.bookingReference = data;
               console.log("started");
+              $scope.status3=true;
               for(var i = 0;i<$scope.bookings.length;i++) {
                calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination,function(dist){
                   $scope.distance.push(dist);
@@ -98,7 +100,7 @@ angular.module('carpooler')
                 console.log('Error: ' + data);
             });
 
-          $scope.status2 = true;
+          //$scope.status2 = true;
         };
 
         $scope.doSomething= function() {
@@ -123,7 +125,7 @@ angular.module('carpooler')
         //console.log($scope.distance.length);
         //console.log($scope.status2);
         $scope.$apply(function(){
-          $scope.status3 = true;
+          $scope.status2 = true;
         });
       };
 
