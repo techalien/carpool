@@ -1,5 +1,5 @@
 angular.module('carpooler')
-  .controller('MainCtrl',function($scope,$http, Travel,moment,$auth,googleDirections){
+  .controller('MainCtrl',function($scope,$http, Travel,moment,$auth){
 
     $scope.formData = {};
 
