@@ -172,3 +172,9 @@ footer {
 p.copyright {
     margin: 15px 0 0;
 }
+
+#caption {
+    color:white;
+    font-size:20px;
+}
+}
