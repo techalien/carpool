@@ -33,6 +33,18 @@ angular.module('carpooler')
             if(data[i].Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India'|| data[i].Destination === 'I.G.I. Airport, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data[i].Destination === 'I.G.I. Airport Metro Station, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data[i].Destination === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India'|| data[i].Destination === 'igi airport, Barakhamba, New Delhi, Delhi, India') {
               data[i].Destination = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
             }
+            if(data[i].Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data[i].Source === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data[i].Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
+              data[i].Source = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
+            }
+            if(data[i].Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data[i].Destination === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data[i].Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
+              data[i].Destination = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
+            }
+            if(data[i].Source === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
+              data[i].Source = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
+            }
+            if(data[i].Destination === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
+              data[i].Destination = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
+            }
           }
             $scope.bookings = data;
             //console.log(data);
@@ -53,6 +65,18 @@ angular.module('carpooler')
                     }
                     if(data[i].Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India'|| data[i].Destination === 'I.G.I. Airport, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data[i].Destination === 'I.G.I. Airport Metro Station, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data[i].Destination === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India'|| data[i].Destination === 'igi airport, Barakhamba, New Delhi, Delhi, India') {
                       data[i].Destination = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
+                    }
+                    if(data[i].Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data[i].Source === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data[i].Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
+                      data[i].Source = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
+                    }
+                    if(data[i].Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data[i].Destination === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data[i].Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
+                      data[i].Destination = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
+                    }
+                    if(data[i].Source === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
+                      data[i].Source = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
+                    }
+                    if(data[i].Destination === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
+                      data[i].Destination = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
                     }
                   }
                     $scope.bookings = data;
@@ -98,31 +122,52 @@ angular.module('carpooler')
               if(data.Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India'|| data.Destination === 'I.G.I. Airport, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Destination === 'I.G.I. Airport Metro Station, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Destination === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India'|| data.Destination === 'igi airport, Barakhamba, New Delhi, Delhi, India') {
                 data.Destination = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
               }
+              if(data.Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data.Source === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data.Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
+                data.Source = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
+              }
+              if(data.Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data.Destination === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data.Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
+                data.Destination = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
+              }
+              if(data.Source === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
+                data.Source = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
+              }
+              if(data.Destination === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
+                data.Destination = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
+              }
               $scope.bookingReference = data;
               console.log("started");
-              //$scope.status3=true;
-              /*for(var i = 0;i<$scope.bookings.length;i++) {
+              $scope.status3=true;
+              var ctr = 0;
+              for(var i = 0;i<$scope.bookings.length;i++) {
+                if($scope.bookings[i].Source === $scope.bookingReference.Source && $scope.bookings[i].travelDate === $scope.bookingReference.travelDate) {
+                  ctr = ctr+ 1;
+                }
+              }
+              for(var i = 0;i<$scope.bookings.length;i++) {
+                if($scope.bookings[i].Source === $scope.bookingReference.Source && $scope.bookings[i].travelDate === $scope.bookingReference.travelDate) {
                calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination,function(dist){
                   $scope.distance.push(dist);
                 //  console.log($scope.distance[0].request.destination);
-                  if($scope.distance.length === $scope.bookings.length) {
+                  console.log("fF");
+                  if($scope.distance.length === ctr) {
                     console.log("do something");
                     $scope.doSomething();
                   }
                 });
-              }*/
+                }
+              }
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
 
-          $scope.status2 = true;
+        //  $scope.status2 = true;
         };
 
         $scope.doSomething= function() {
           $scope.bookingResultArray = [];
         for(var i = 0;i<$scope.bookings.length;i++) {
-          if($scope.bookings[i].Source === $scope.bookingReference.Source) {
+          if($scope.bookings[i].Source === $scope.bookingReference.Source && $scope.bookings[i].travelDate === $scope.bookingReference.travelDate) {
             for(var j = 0;j<$scope.distance.length;j++) {
               console.log($scope.distance[j].routes[0].legs[0].distance.value);
               if(($scope.distance[j].request.origin === $scope.bookings[i].Destination)&&($scope.distance[j].request.destination === $scope.bookingReference.Destination)) {
@@ -134,9 +179,9 @@ angular.module('carpooler')
             }
           }
         }
-        //console.log($scope.distance);
+        console.log($scope.distance);
         //console.log($scope.bookings);
-      //  console.log($scope.bookingResultArray);
+        console.log($scope.bookingResultArray);
         console.log("success");
         //console.log($scope.distance.length);
         //console.log($scope.status2);
