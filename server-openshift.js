@@ -23,8 +23,13 @@ var travelSchema   = new Schema({
   Source:String,
   Destination:String,
   travelDate:Date,
-  travelTime:String
+  travelTime:String,
+  sourceLat:Number,
+  sourceLong:Number,
+  destLat:Number,
+  destLong:Number
 });
+
 
 var userSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
@@ -175,6 +180,10 @@ app.post('/api/carpooler',ensureAuthenticated, function (req, res, next) {
     travel.Destination=req.body.Destination;
     travel.travelDate=req.body.travelDate;
     travel.travelTime=req.body.travelTime;
+    travel.sourceLat=req.body.sourceLat;
+    travel.sourceLong=req.body.sourceLong;
+    travel.destLat=req.body.destLat;
+    travel.destLong=req.body.destLong;
                                 //configure angular to choose from dropdown menu
     travel.save(function(err) {
       if (err)
