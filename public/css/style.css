@@ -20,8 +20,8 @@ a {
 }
 
 .bookingcard:hover{
-  background-color:#1abc9c;
-  color: white;
+  background-color:#0C84E4;
+  color: white !important;
 }
 .bookingcard{
   background-color:white;

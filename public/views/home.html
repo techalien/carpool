@@ -58,7 +58,7 @@
                           <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}}</h4>
                             <h5 class="text-center" style="color:white;" > to </h5>
                           <h4 class="text-center">{{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
-                            <h5 class="text-center" style="color:white;" > at </h5>
+                            <h5 class="text-center" style="color:white;" >on {{booking.travelDate}} at </h5>
                             <h4 class="text-center"> {{booking.travelTime}}</h4>
                           <h5 class="text-center" style="color:white;" > Contact at </h5>
                           <h4 class="text-center"><a href="mailto:{{booking.userEmail}}?Subject=poolYourCar" target="_top">{{booking.userEmail}}</a></h4>
