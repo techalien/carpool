@@ -13,7 +13,7 @@
                 <h4>No bookings found. Use the <a href="/#/travels" class="btn btn-warning btn-xs" >Book</a> option to start carpooling!</h4>
                 <small>If you dont see your name above,try reloading.</p>
               </div>
-              <div class="panel panel-default col-md-4" ng-repeat="booking in filteredBookings=( bookings )" ng-show="username.length > 0">
+              <div class="panel panel-default col-md-4" ng-repeat="booking in filteredBookings=( bookings | filter:{Name:username})" ng-show="username.length > 0">
                 <div class="panel-body">
                   <div ng-show="username.length > 0">
                     <div class="row">
