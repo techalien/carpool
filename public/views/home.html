@@ -19,8 +19,9 @@
                     <div class="row">
                       <div>
                         <h4 class="text-center">I  <!--{{ booking.Name }}--> am going from </h4>
-                        <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}} to {{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
-                        <h4 class="text-center">    on  {{booking.travelDate}}</h4>
+                        <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}} <br/>to
+                          <br/> {{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
+                        <h4 class="text-center">  on  {{booking.travelDate}}</h4>
 
                       </div>
                       <div>
@@ -51,15 +52,17 @@
                   </div>
                   <div class="col-centered" >
                     <div class="panel panel-default" ng-show="status2" ng-repeat="booking in filteredResult = (bookingResultArray | filter:{travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
-                        <div class="panel-body">
+                        <div class="panel-body" id="resultcard">
                           <h4 class="text-center">{{booking.Name}}</h4>
-                          <h4 class="text-center">is going from</h4>
-                          <h4 class="text-center" style="color:green;">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}} to </h4>
-                          <h4 class="text-center" style="color:red;">{{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
-                          <h4 class="text-center">at  {{booking.travelTime}}</h4>
-                          <h4 class="text-center">contact at</h4>
-                          <h4 class="text-center" style="color:blue;">{{booking.userEmail}}</h4>
-                          <h4 class="text-center"style="color:blue;">{{booking.phoneNum}}</h4>
+                          <h4 class="text-center" style="color:white;">is going from</h4>
+                          <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}}</h4>
+                            <h5 class="text-center" style="color:white;" > to </h5>
+                          <h4 class="text-center">{{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
+                            <h5 class="text-center" style="color:white;" > at </h5>
+                            <h4 class="text-center"> {{booking.travelTime}}</h4>
+                          <h5 class="text-center" style="color:white;" > Contact at </h5>
+                          <h4 class="text-center" >{{booking.userEmail}}</h4>
+                          <h4 class="text-center">{{booking.phoneNum}}</h4>
                     </div>
                   </div>
                 </div>
