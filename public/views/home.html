@@ -13,12 +13,12 @@
                 <h4>No bookings found. Use the <a href="/#/travels" class="btn btn-warning btn-xs" >Book</a> option to start carpooling!</h4>
                 <small>If you dont see your name above,try reloading.</p>
               </div>
-              <div class="panel panel-default col-md-4" ng-repeat="booking in filteredBookings=( bookings |filter:{Name:username})" ng-show="username.length > 0">
+              <div class="panel panel-default col-md-4" ng-repeat="booking in filteredBookings=( bookings )" ng-show="username.length > 0">
                 <div class="panel-body">
                   <div ng-show="username.length > 0">
                     <div class="row">
                       <div>
-                        <h4 class="text-center">I  {{ booking.Name }} am going from </h4>
+                        <h4 class="text-center">I  <!--{{ booking.Name }}--> am going from </h4>
                         <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}} to {{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
                         <h4 class="text-center">    on  {{booking.travelDate}}</h4>
                         <h4 class="text-center">   at  {{booking.travelTime}}</h4>
