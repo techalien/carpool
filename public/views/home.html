@@ -21,7 +21,7 @@
                         <h4 class="text-center">I  <!--{{ booking.Name }}--> am going from </h4>
                         <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}} to {{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
                         <h4 class="text-center">    on  {{booking.travelDate}}</h4>
-                        <h4 class="text-center">   at  {{booking.travelTime}}</h4>
+
                       </div>
                       <div>
                         <button class="btn btn-xs btn-danger" ng-click="deleteBooking(booking._id)">Delete</button>
@@ -42,42 +42,22 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title text-center" id="myModalLabel">Results</h4>
+                  <h4 class="modal-title text-center" id="myModalLabel"><span class="label label-primary" ng-if="filteredResult.length > 0">{{filteredResult.length}}</span> Others travelling the same as you</h4>
                 </div>
                 <div class="modal-body ">
-                  <div class="col-centered" ng-show="status2">
-                    <div class="panel panel-default">
-                      <div class="panel-heading"><span class="label label-primary" ng-if="filteredResult.length > 0">{{filteredResult.length}}</span> Others travelling the same as you</div>
+                  <div ng-show="filteredResult.length == 0">
+                    <h4>Aww snap! There aren't any travellers on your chosen booking!</h4>
+                    <small>Try booking to an alternate destination or check again soon till someone registers!</small>
+                  </div>
+                  <div class="col-centered" >
+                    <div class="panel panel-default" ng-show="status2" ng-repeat="booking in filteredResult = (bookingResultArray | filter:{travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
                         <div class="panel-body">
-                          <table class="table table-striped table-hover ">
-                            <thead>
-                              <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Contact</th>
-                                <th>Source</th>
-                                <th>Destination</th>
-                      <!--      <th>Date</th>-->
-                                <th>Time</th>
-                              </tr>
-                            </thead>
-                            <tbody ng-repeat="booking in filteredResult = (bookingResultArray | filter:{travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
-                              <tr>
-                                <td>{{booking.Name}}</td>
-                                <td>{{booking.userEmail}}</td>
-                                <td>{{booking.phoneNum}}</td>
-                                <td>{{booking.Source}}</td>
-                                <td>{{booking.Destination}}</td>
-                          <!--  <td>{{booking.travelDate}}</td>-->
-                                <td>{{booking.travelTime}}</td>
-                              </tr>
-                            </tbody>
-                          </table>
-
-                    <div ng-show="filteredResult.length == 0">
-                      <h4>Aww snap! There aren't any travellers on your chosen booking!</h4>
-                      <small>Try booking to an alternate destination or check again soon till someone registers!</small>
-                    </div>
+                          <h4 class="text-center">{{booking.Name}} is going from</h4>
+                          <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}} to {{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
+                          <h4 class="text-center">at  {{booking.travelTime}}</h4>
+                          <h4 class="text-center">contact at</h4>
+                          <h4 class="text-center">{{booking.userEmail}}</h4>
+                          <h4 class="text-center">{{booking.phoneNum}}</h4>
                     </div>
                   </div>
                 </div>
