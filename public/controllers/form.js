@@ -109,7 +109,11 @@ angular.module('carpooler')
 
         console.log(data);
       });
-
+      function srcfunc(location) {
+        console.log("test" + location.lat());
+        $scope.sourceLat = location.lat();
+        $scope.sourceLong = location.lng();
+      };
     $scope.addTravel = function() {
       var geo = new google.maps.Geocoder;
       geo.geocode({'address':$scope.Source},function(results, status){
@@ -117,24 +121,27 @@ angular.module('carpooler')
         console.log("srclatitude" + results[0].geometry.location.lat());
         console.log("srclongitude" + results[0].geometry.location.lng());
         // Add some code to work with myLatLng
-        $scope.sourceLat = results[0].geometry.location.lat();
-        $scope.sourceLong = results[0].geometry.location.lng();
+        srcfunc(results[0].geometry.location);
+        geo.geocode({'address':$scope.Destination},function(results, status){
+          if (status == google.maps.GeocoderStatus.OK) {
+          console.log("destlatitude" + results[0].geometry.location.lat());
+          console.log("destlongitude" + results[0].geometry.location.lng());
+          // Add some code to work with myLatLng
+          $scope.destLat = results[0].geometry.location.lat();
+          $scope.destLong = results[0].geometry.location.lng();
+          console.log("latitit"+$scope.sourceLat);
+          tsave();
+          } else {
+          alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
         } else {
         alert("Geocode was not successful for the following reason: " + status);
         }
       });
-      geo.geocode({'address':$scope.Destination},function(results, status){
-        if (status == google.maps.GeocoderStatus.OK) {
-        console.log("destlatitude" + results[0].geometry.location.lat());
-        console.log("destlongitude" + results[0].geometry.location.lng());
-        // Add some code to work with myLatLng
-        $scope.destLat = results[0].geometry.location.lat();
-        $scope.destLong = results[0].geometry.location.lng();
-        } else {
-        alert("Geocode was not successful for the following reason: " + status);
-        }
-      });
-      Travel.save({
+
+      function tsave() {
+        Travel.save({
         Name: $scope.user.displayName,
         userEmail:$scope.user.email,
         phoneNum:$scope.user.phoneNum,
@@ -174,6 +181,7 @@ angular.module('carpooler')
             duration: 3
           });
 
-        });
+        })
+      };
     };
   });

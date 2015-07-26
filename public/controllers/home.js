@@ -117,46 +117,12 @@ angular.module('carpooler')
             .success(function(data) {
               data.travelDate = new moment(data.travelDate).format("MMM Do YYYY");
               data.travelTime = new moment(data.travelTime).format("h:mm a");
-              if(data.Source === 'Indira Gandhi International Airport, New Delhi, Delhi, India'|| data.Source === 'I.G.I. Airport, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Source === 'I.G.I. Airport Metro Station, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Source === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India'|| data.Source === 'igi airport, Barakhamba, New Delhi, Delhi, India') {
-                data.Source = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
-              }
-              if(data.Destination === 'Indira Gandhi International Airport, New Delhi, Delhi, India'|| data.Destination === 'I.G.I. Airport, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Destination === 'I.G.I. Airport Metro Station, IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India' || data.Destination === 'Indira Gandhi International Airport, IGI Airport, New Delhi, Delhi, India'|| data.Destination === 'igi airport, Barakhamba, New Delhi, Delhi, India') {
-                data.Destination = 'IGI Airport, Indira Gandhi International Airport, New Delhi, Delhi, India';
-              }
-              if(data.Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data.Source === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data.Source === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
-                data.Source = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
-              }
-              if(data.Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, India' || data.Destination === 'Hazrat Nizamudin, Nizamuddin East, New Delhi, Delhi, India' || data.Destination === 'Nizamuddin Railway Station, Nizamuddin East, New Delhi, Delhi, India') {
-                data.Destination = 'Hazrat Nizamuddin Railway Station, New Delhi, Delhi, India';
-              }
-              if(data.Source === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
-                data.Source = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
-              }
-              if(data.Destination === 'NDLS Ajmeri Gate Side, Pedestrian Overpass, Ajmere Gate, New Delhi, Delhi, India') {
-                data.Destination = 'New Delhi Railway Station, Paharganj Road, Ratan Lal Market, New Delhi, Delhi, India';
-              }
+
               $scope.bookingReference = data;
               console.log("started");
               $scope.status3=true;
-              var ctr = 0;
-              for(var i = 0;i<$scope.bookings.length;i++) {
-                if($scope.bookings[i].Source === $scope.bookingReference.Source && $scope.bookings[i].travelDate === $scope.bookingReference.travelDate) {
-                  ctr = ctr+ 1;
-                }
-              }
-              for(var i = 0;i<$scope.bookings.length;i++) {
-                if($scope.bookings[i].Source === $scope.bookingReference.Source && $scope.bookings[i].travelDate === $scope.bookingReference.travelDate) {
-               calcRoute($scope.bookings[i].Destination,$scope.bookingReference.Destination,function(dist){
-                  $scope.distance.push(dist);
-                //  console.log($scope.distance[0].request.destination);
-                  console.log("fF");
-                  if($scope.distance.length === ctr) {
-                    console.log("do something");
-                    $scope.doSomething();
-                  }
-                });
-                }
-              }
+              $scope.doSomething();
+
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -164,31 +130,50 @@ angular.module('carpooler')
 
         //  $scope.status2 = true;
         };
+        function toRad (number) {
+          return number * Math.PI / 180;
+        };
+
+        function distanceh(lat1,lon1,lat2,lon2) {
+          var R = 6371000; // metres
+          var φ1 = toRad(lat1);
+          var φ2 = toRad(lat2);
+          var Δφ = toRad(lat2-lat1);
+          var Δλ = toRad(lon2-lon1);
+          var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+          Math.cos(φ1) * Math.cos(φ2) *
+          Math.sin(Δλ/2) * Math.sin(Δλ/2);
+          var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+          var d = R * c
+          console.log($scope.bookingReference);
+          console.log(d);
+          return d;
+        }
 
         $scope.doSomething= function() {
           $scope.bookingResultArray = [];
-        for(var i = 0;i<$scope.bookings.length;i++) {
-          if($scope.bookings[i].Source === $scope.bookingReference.Source && $scope.bookings[i].travelDate === $scope.bookingReference.travelDate) {
-            for(var j = 0;j<$scope.distance.length;j++) {
-              console.log($scope.distance[j].routes[0].legs[0].distance.value);
-              if(($scope.distance[j].request.origin === $scope.bookings[i].Destination)&&($scope.distance[j].request.destination === $scope.bookingReference.Destination)) {
-                if($scope.distance[j].routes[0].legs[0].distance.value <= 5000){
-                  $scope.bookingResultArray.push($scope.bookings[i]);
-                  break;
-                }
+          for(var i = 0;i<$scope.bookings.length;i++) {
+            var slt1 = $scope.bookingReference.sourceLat;
+            var slt2 = $scope.bookings[i].sourceLat;
+            var sln1 = $scope.bookingReference.sourceLong;
+            var sln2 = $scope.bookings[i].sourceLong;
+            var dlt1 = $scope.bookingReference.destLat;
+            var dlt2 = $scope.bookings[i].destLat;
+            var dln1 = $scope.bookingReference.destLong;
+            var dln2 = $scope.bookings[i].destLong;
+            if(distanceh(slt1,sln1,slt2,sln2)<5000) {
+              if(distanceh(dlt1,dln1,dlt2,dln2)<5000) {
+                $scope.bookingResultArray.push($scope.bookings[i]);
               }
             }
           }
-        }
-        console.log($scope.distance);
         //console.log($scope.bookings);
-        console.log($scope.bookingResultArray);
-        console.log("success");
+        //console.log($scope.bookingResultArray);
+        //console.log("success");
         //console.log($scope.distance.length);
         //console.log($scope.status2);
-        $scope.$apply(function(){
           $scope.status2 = true;
-        });
+
       };
 
 
