@@ -65,7 +65,7 @@
                             <th>Time</th>
                           </tr>
                         </thead>
-                        <tbody ng-repeat="booking in filteredResult = (bookingResultArray | filter:{Source:bookingReference.Source,travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
+                        <tbody ng-repeat="booking in filteredResult = (bookingResultArray | filter:{travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
                           <tr>
                             <td>{{booking.Name}}</td>
                             <td>{{booking.userEmail}}</td>

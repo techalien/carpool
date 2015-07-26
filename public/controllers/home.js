@@ -86,7 +86,7 @@ angular.module('carpooler')
                     console.log('Error: ' + data);
                 });
         };
-        $scope.distance =[];
+        //$scope.distance =[];
         var directionsService = new google.maps.DirectionsService();
         function calcRoute(place1,place2,callback) {
           var start = place1;
@@ -145,8 +145,8 @@ angular.module('carpooler')
           Math.sin(Δλ/2) * Math.sin(Δλ/2);
           var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
           var d = R * c
-          console.log($scope.bookingReference);
-          console.log(d);
+          //console.log($scope.bookingReference);
+          //console.log(d);
           return d;
         }
 
@@ -168,7 +168,7 @@ angular.module('carpooler')
             }
           }
         //console.log($scope.bookings);
-        //console.log($scope.bookingResultArray);
+        console.log($scope.bookingResultArray);
         //console.log("success");
         //console.log($scope.distance.length);
         //console.log($scope.status2);
