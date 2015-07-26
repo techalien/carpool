@@ -20,11 +20,11 @@ a {
 }
 
 .bookingcard:hover{
-  background-color:#0C84E4;
+  background-color:white;
   color: white !important;
 }
 .bookingcard{
-  background-color:white;
+  background-color:#dfdfdf;
 }
 .panel {
   border-color: #cfd9D7;
