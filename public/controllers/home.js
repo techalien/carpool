@@ -153,6 +153,7 @@ angular.module('carpooler')
         $scope.doSomething= function() {
           $scope.bookingResultArray = [];
           for(var i = 0;i<$scope.bookings.length;i++) {
+            if($scope.bookings[i].travelDate === $scope.bookingReference.travelDate) {
             var slt1 = $scope.bookingReference.sourceLat;
             var slt2 = $scope.bookings[i].sourceLat;
             var sln1 = $scope.bookingReference.sourceLong;
@@ -167,6 +168,7 @@ angular.module('carpooler')
               }
             }
           }
+        }
         //console.log($scope.bookings);
         console.log($scope.bookingResultArray);
         //console.log("success");
