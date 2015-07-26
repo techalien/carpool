@@ -13,8 +13,8 @@
                 <h4>No bookings found. Use the <a href="/#/travels" class="btn btn-warning btn-xs" >Book</a> option to start carpooling!</h4>
                 <small>If you dont see your name above,try reloading.</p>
               </div>
-              <div class="panel panel-default col-md-4" ng-repeat="booking in filteredBookings=( bookings | filter:{Name:username})" ng-show="username.length > 0">
-                <div class="panel-body">
+              <div class="panel panel-default col-md-4 bookingcard"  ng-repeat="booking in filteredBookings=( bookings )" ng-show="username.length > 0">
+                <div class="panel-body ">
                   <div ng-show="username.length > 0">
                     <div class="row">
                       <div>
@@ -51,7 +51,7 @@
                     <small>Try booking to an alternate destination or check again soon till someone registers!</small>
                   </div>
                   <div class="col-centered" >
-                    <div class="panel panel-default" ng-show="status2" ng-repeat="booking in filteredResult = (bookingResultArray | filter:{travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
+                    <div class="panel panel-default bookingcard" ng-show="status2" ng-repeat="booking in filteredResult = (bookingResultArray | filter:{travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
                         <div class="panel-body" id="resultcard">
                           <h4 class="text-center">{{booking.Name}}</h4>
                           <h4 class="text-center" style="color:white;">is going from</h4>
@@ -61,8 +61,8 @@
                             <h5 class="text-center" style="color:white;" > at </h5>
                             <h4 class="text-center"> {{booking.travelTime}}</h4>
                           <h5 class="text-center" style="color:white;" > Contact at </h5>
-                          <h4 class="text-center" >{{booking.userEmail}}</h4>
-                          <h4 class="text-center">{{booking.phoneNum}}</h4>
+                          <h4 class="text-center"><a href="mailto:{{booking.userEmail}}?Subject=poolYourCar" target="_top">{{booking.userEmail}}</a></h4>
+                          <h4 class="text-center"><a href="tel:{{booking.phoneNum}}">{{booking.phoneNum}}</a></h4>
                     </div>
                   </div>
                 </div>
