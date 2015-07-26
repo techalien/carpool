@@ -1,7 +1,7 @@
 <div class="container-fluid"  ng-if="isAuthenticated()">
 
         <!-- HEADER AND COUNT -->
-        <div class="jumbotron text-center" >
+        <div class="jumbotron text-center visible-desktop hidden-phone" >
             <h1>Hi {{username}}! </h1>
             <h3>Total bookings on poolYourCar: <span class="label label-primary">{{ bookings.length }}</span></h3>
             <h3>Your bookings: <span class="label label-primary">{{filteredBookings.length}}</span></h3>
