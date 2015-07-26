@@ -53,14 +53,14 @@
                   <div class="col-centered" >
                     <div class="panel panel-default bookingcard" ng-show="status2" ng-repeat="booking in filteredResult = (bookingResultArray | filter:{travelDate:bookingReference.travelDate,Name:'!'+userdata.displayName})">
                         <div class="panel-body" id="resultcard">
-                          <h4 class="text-center">{{booking.Name}}</h4>
-                          <h4 class="text-center" style="color:white;">is going from</h4>
-                          <h4 class="text-center">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}}</h4>
-                            <h5 class="text-center" style="color:white;" > to </h5>
-                          <h4 class="text-center">{{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
-                            <h5 class="text-center" style="color:white;" >on {{booking.travelDate}} at </h5>
-                            <h4 class="text-center"> {{booking.travelTime}}</h4>
-                          <h5 class="text-center" style="color:white;" > Contact at </h5>
+                          <h4 class="text-center" style="color:#2c3e50;">{{booking.Name}}</h4>
+                          <h4 class="text-center" >is going from</h4>
+                          <h4 class="text-center" style="color:#2c3e50;">{{booking.Source| limitTo: 25 }}{{booking.Source.length > 25 ? '...' : ''}}</h4>
+                            <h5 class="text-center" > to </h5>
+                          <h4 class="text-center" style="color:#2c3e50;">{{booking.Destination| limitTo: 25 }}{{booking.Destination.length > 25 ? '...' : ''}}</h4>
+                            <h5 class="text-center"  >on {{booking.travelDate}} at </h5>
+                            <h4 class="text-center" style="color:#2c3e50;"> {{booking.travelTime}}</h4>
+                          <h5 class="text-center"  > Contact at </h5>
                           <h4 class="text-center"><a href="mailto:{{booking.userEmail}}?Subject=poolYourCar" target="_top">{{booking.userEmail}}</a></h4>
                           <h4 class="text-center"><a href="tel:{{booking.phoneNum}}">{{booking.phoneNum}}</a></h4>
                     </div>
