@@ -27,7 +27,7 @@ angular.module('carpooler')
     $scope.clear = function () {
       $scope.dt = null;
     };
-  
+
     $scope.places = [
       'Shiv Nadar University',
       'IGI Airport Delhi ( International )',
@@ -111,6 +111,29 @@ angular.module('carpooler')
       });
 
     $scope.addTravel = function() {
+      var geo = new google.maps.Geocoder;
+      geo.geocode({'address':$scope.Source},function(results, status){
+        if (status == google.maps.GeocoderStatus.OK) {
+        console.log("srclatitude" + results[0].geometry.location.lat());
+        console.log("srclongitude" + results[0].geometry.location.lng());
+        // Add some code to work with myLatLng
+        $scope.sourceLat = results[0].geometry.location.lat();
+        $scope.sourceLong = results[0].geometry.location.lng();
+        } else {
+        alert("Geocode was not successful for the following reason: " + status);
+        }
+      });
+      geo.geocode({'address':$scope.Destination},function(results, status){
+        if (status == google.maps.GeocoderStatus.OK) {
+        console.log("destlatitude" + results[0].geometry.location.lat());
+        console.log("destlongitude" + results[0].geometry.location.lng());
+        // Add some code to work with myLatLng
+        $scope.destLat = results[0].geometry.location.lat();
+        $scope.destLong = results[0].geometry.location.lng();
+        } else {
+        alert("Geocode was not successful for the following reason: " + status);
+        }
+      });
       Travel.save({
         Name: $scope.user.displayName,
         userEmail:$scope.user.email,
@@ -118,7 +141,11 @@ angular.module('carpooler')
         Source:$scope.Source,
         Destination:$scope.Destination,
         travelDate:$scope.dt,
-        travelTime:$scope.travelTime
+        travelTime:$scope.travelTime,
+        sourceLat:$scope.sourceLat,
+        sourceLong:$scope.sourceLong,
+        destLat:$scope.destLat,
+        destLong:$scope.destLong
         }).$promise
         .then(function() {
           $scope.Name = '';
