@@ -19,9 +19,12 @@ a {
   color: #90939a;
 }
 
-
+.panel:hover {
+  background-color: white !important;
+}
 
 .panel {
+  background-color:#dfdfdf !important;
   border-color: #cfd9D7;
   border-radius: 2px;
   box-shadow: 0 8px 17px rgba(0, 0, 0, .2);
